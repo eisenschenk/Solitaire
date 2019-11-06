@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8A5D6D48-11F3-46DA-8898-4DDCA76E336B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>VnodeTest</RootNamespace>
-    <AssemblyName>VnodeTest</AssemblyName>
+    <RootNamespace>Solitaire</RootNamespace>
+    <AssemblyName>Solitaire</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AppContext.cs" />
     <Compile Include="Application.cs" />
+    <Compile Include="Card.cs" />
     <Compile Include="ColorThemeComponent.cs" />
     <Compile Include="PaginationComponent.cs" />
     <Compile Include="Program.cs" />

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VnodeTest
+namespace Solitaire
 {
     public class Session : ACL.UI.Manager.Session
     {

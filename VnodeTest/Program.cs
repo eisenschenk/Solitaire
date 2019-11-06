@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VnodeTest
+namespace Solitaire
 {
     class Program
     {

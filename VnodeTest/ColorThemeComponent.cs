@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static ACL.UI.React.DOM;
 
 
-namespace VnodeTest
+namespace Solitaire
 {
     class ColorThemeComponent
     {
