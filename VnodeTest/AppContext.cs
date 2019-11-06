@@ -36,8 +36,8 @@ namespace Solitaire
             //SomeDataHandler = new SomeData.Handler(Repsitory, bus);
         }
 
-        public SomeDataController CreateSomeDataController() =>
-            new SomeDataController();
+        public GameBoard CreateSomeDataController() =>
+            new GameBoard();
     }
 
 }

@@ -8,5 +8,14 @@ namespace Solitaire
 {
     class Card
     {
+        public string Color;
+        public string PipID;
+        public int Value;
+
+
+        public Card()
+        {
+
+        }
     }
 }

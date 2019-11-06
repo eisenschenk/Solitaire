@@ -7,20 +7,12 @@ using static ACL.UI.React.DOM;
 
 namespace Solitaire
 {
-    public class SomeDataController
+    public class GameBoard
     {
-        string username;
-        string password;
-        string userdata;
-        string registerkarte1 = "RegisterKarte 1";
-        string registerkarte2 = "RegisterKarte 2";
-        string registerkarte3 = "RegisterKarte 3";
-        string[] registerarray = { "*(T_T)* Karte1 *(T_T)*", "*(-_-)* Karte2 *(-_-)*", "*(O_o)* Karte3 *(O_o)*" };
-        string[] searchArray = { "peter", "pan", "paul", "potz", "peter", "petra", "paula", "phil" };
-        Func<VNode> registerRenderFunc;
+        
         VNode RefreshReference;
 
-        public SomeDataController()
+        public GameBoard()
         {
             DateTime nextRefresh = DateTime.Now;
             ThreadPool.QueueUserWorkItem(o =>

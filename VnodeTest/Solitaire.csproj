@@ -65,7 +65,7 @@
     <Compile Include="RootController.cs" />
     <Compile Include="SearchbarComponent.cs" />
     <Compile Include="Session.cs" />
-    <Compile Include="SomeDataController.cs" />
+    <Compile Include="GameBoard.cs" />
     <Compile Include="Styles.cs" />
     <Compile Include="WatchComponent.cs" />
   </ItemGroup>

@@ -18,8 +18,8 @@ namespace Solitaire
         //public VNode Render() => CurrentContent();
         public VNode Render() => SomeDataController.Render();
 
-        private SomeDataController _SomeDataController;
-        private SomeDataController SomeDataController =>
+        private GameBoard _SomeDataController;
+        private GameBoard SomeDataController =>
         _SomeDataController ??
         (_SomeDataController = ((Application)Application.Instance).AppContext.CreateSomeDataController());
     }
