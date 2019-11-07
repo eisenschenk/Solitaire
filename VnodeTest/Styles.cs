@@ -15,106 +15,164 @@ namespace Solitaire
         public Rule[] GetRules() => GetRulesOfType(this);
 
         public Rule[] SomeRules => RuleSet(
-                         Def(BCblack,
-                             BackgroundColor("black")
-                             ),
 
-                         Def(BCred,
-                             BackgroundColor("red")
-                             ),
+                    Def(BCblack,
+                        BackgroundColor("black")
+                        ),
 
-                         Def(TCblack,
-                             Color("black")
-                             ),
+                    Def(BCred,
+                        BackgroundColor("red")
+                        ),
 
-                         Def(TCwhite,
-                             Color("white")
-                             ),
+                    Def(TCblack,
+                        Color("black")
+                        ),
 
-                         Def(TCgreen,
-                             Color("green")
-                             ),
+                    Def(TCred,
+                        Color("red")
+                        ),
 
-                         Def(Dropdown,
-                            Display("block"),
-                            Position("absolute"),
-                            BackgroundColor("grey"),
-                            Width("fit-content"),
-                            Height("auto"),
-                            Padding("12px 16px"),
-                            ZIndex("1")
-                             ),
+                    Def(TCwhite,
+                        Color("white")
+                        ),
 
-                         Def(M2,
-                             Margin("2px")
-                             ),
+                    Def(TCgreen,
+                        Color("green")
+                        ),
 
-                         Def(MX2,
-                             MarginLeft("2px"),
-                             MarginRight("2px")
-                             ),
+                    Def(Dropdown,
+                    Display("block"),
+                    Position("absolute"),
+                    BackgroundColor("grey"),
+                    Width("fit-content"),
+                    Height("auto"),
+                    Padding("12px 16px"),
+                    ZIndex("1")
+                        ),
 
-                         Def(MY2,
-                             MarginTop("2px"),
-                             MarginBottom("2px")
-                             ),
+                    Def(M2,
+                        Margin("2px")
+                        ),
 
-                         Def(MR2,
-                             MarginRight("2px")
-                             ),
+                    Def(MX2,
+                        MarginLeft("2px"),
+                        MarginRight("2px")
+                        ),
 
-                          Def(ML2,
-                             MarginLeft("2px")
-                             ),
+                    Def(MY2,
+                        MarginTop("2px"),
+                        MarginBottom("2px")
+                        ),
 
-                          Def(MT2,
-                             MarginTop("2px")
-                             ),
+                    Def(MR2,
+                        MarginRight("2px")
+                        ),
 
-                          Def(MB2,
-                             MarginBottom("2px")
-                             ),
+                    Def(ML2,
+                        MarginLeft("2px")
+                        ),
 
-                          Def(R10,
-                              Right("10px")
-                              ),
+                    Def(MT2,
+                        MarginTop("2px")
+                        ),
 
-                          Def(Absolute,
-                              Position("absolute")
-                              ),
+                    Def(MB2,
+                        MarginBottom("2px")
+                        ),
 
-                          Def(Btn,
-                              BaseBtn,
-                              BackgroundColor("green"),
-                              GetHoverRule("darkgreen")
-                              ),
+                    Def(R10,
+                        Right("10px")
+                        ),
 
-                         Def(BaseBtn,
-                             BorderRadius("5px"),
-                             Margin("4px 4px 4px 0px"),
-                             Width("fit-content"),
-                             Padding("4px")
-                             ),
+                    Def(Absolute,
+                        Position("absolute")
+                        ),
 
-                         Def(AbortBtn,
-                             BaseBtn,
-                             BackgroundColor("red"),
-                             GetHoverRule("orange")
-                             ),
+                    Def(Btn,
+                        BaseBtn,
+                        BackgroundColor("green"),
+                        GetHoverRule("darkgreen")
+                        ),
 
-                         Def(SelectedBtn,
-                             BaseBtn,
-                             BackgroundColor("seagreen")
-                             ),
+                    Def(BaseBtn,
+                        BorderRadius("5px"),
+                        Margin("4px 4px 4px 0px"),
+                        Width("fit-content"),
+                        Padding("4px")
+                        ),
 
-                         Def(FlexRow,
-                             FlexDirection("row")
-                                 ),
+                    Def(AbortBtn,
+                        BaseBtn,
+                        BackgroundColor("red"),
+                        GetHoverRule("orange")
+                        ),
 
-                         Def(HoverWhite,
-                            GetHoverRule("white")
-                             )
-            );
+                    Def(SelectedBtn,
+                        BaseBtn,
+                        BackgroundColor("seagreen")
+                        ),
+
+                    Def(BorderedBox,
+                        Padding("2px"),
+                        BorderRadius(".25rem"),
+                        Width("fit-content")
+                        ),
+
+                    Def(BorderedBoxBlack,
+                        BorderedBox,
+                        Border("2px solid black")
+                        ),
+
+                     Def(BorderedBoxGreen,
+                         BorderedBox,
+                         Border("2px solid green")
+                        ),
+
+                    Def(TextAlignR,
+                        TextAlign("right")
+                        ),
+
+                    Def(TextAlignC,
+                    TextAlign("center")
+                    ),
+
+                    Def(FlexRow,
+                        FlexDirection("row")
+                            ),
+
+                    Def(HoverWhite,
+                    GetHoverRule("white")
+                        ),
+
+                    Def(W2C,
+                        Width("2rem")
+                        ),
+
+                    Def(W4C,
+                        Width("4rem")
+                        ),
+
+                    Def(W6C,
+                        Width("6rem")
+                        ),
+
+                    Def(FontSize3,
+                        FontSize("3rem")
+                        ),
+
+                    Def(W25,
+                         Width("25%")
+                         ),
+
+                    Def(W50,
+                         Width("50%")
+                         ),
+
+                    Def(W75,
+                         Width("75%")
+                         )
+
+                    );
         private Rule GetHoverRule(string color)
         {
             return Def("&:hover", BackgroundColor(color));
@@ -126,8 +184,11 @@ namespace Solitaire
         public static readonly Style BCblack;
         public static readonly Style BCred;
         public static readonly Style TCblack;
+        public static readonly Style TCred;
         public static readonly Style TCwhite;
         public static readonly Style TCgreen;
+
+        public static readonly Style FontSize3;
 
         public static readonly Style M2;
         public static readonly Style MX2;
@@ -137,6 +198,14 @@ namespace Solitaire
         public static readonly Style MT2;
         public static readonly Style MB2;
 
+        public static readonly Style W2C;
+        public static readonly Style W4C;
+        public static readonly Style W6C;
+
+        public static readonly Style W25;
+        public static readonly Style W50;
+        public static readonly Style W75;
+
         public static readonly Style Dropdown;
         public static readonly Style FlexRow;
 
@@ -144,6 +213,13 @@ namespace Solitaire
         public static readonly Style Btn;
         public static readonly Style AbortBtn;
         public static readonly Style SelectedBtn;
+
+        public static readonly Style BorderedBox;
+        public static readonly Style BorderedBoxBlack;
+        public static readonly Style BorderedBoxGreen;
+
+        public static readonly Style TextAlignR;
+        public static readonly Style TextAlignC;
 
         public static readonly Style R10;
       
