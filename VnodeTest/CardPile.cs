@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +17,10 @@ namespace Solitaire
         public List<Card> FoundationpileSpade = new List<Card>();
         public List<Card> FoundationpileHeart = new List<Card>();
         public List<Card> FoundationpileDiamonds = new List<Card>();
-
-
+       
         public CardPile(int count)
         {
+            //enums
             for (int index = 0; index < 52; index++)
                 Deck.Add(new Card(index));
 

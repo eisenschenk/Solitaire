@@ -128,6 +128,26 @@ namespace Solitaire
                          Border("2px solid green")
                         ),
 
+                     Def(BorderedBoxRed,
+                         BorderedBox,
+                         Border("2px solid green")
+                        ),
+
+                     Def(CardBlack,
+                         BorderedBoxBlack,
+                         TCblack
+                         ),
+
+                     Def(CardRed,
+                         BorderedBoxRed,
+                         TCgreen
+                         ),
+
+                      Def(CardGreen,
+                         BorderedBoxRed,
+                         TCred
+                         ),
+
                     Def(TextAlignR,
                         TextAlign("right")
                         ),
@@ -217,6 +237,12 @@ namespace Solitaire
         public static readonly Style BorderedBox;
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
+        public static readonly Style BorderedBoxRed;
+
+        public static readonly Style CardRed;
+        public static readonly Style CardBlack;
+        public static readonly Style CardGreen;
+
 
         public static readonly Style TextAlignR;
         public static readonly Style TextAlignC;

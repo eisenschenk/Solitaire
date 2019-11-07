@@ -17,8 +17,6 @@ namespace Solitaire
             ShuffleCardDeck();
             DealCards();
         }
-
-
         //TODO
         private void ShuffleCardDeck()
         {
@@ -40,7 +38,7 @@ namespace Solitaire
                 Row(
                     Row(
                         Styles.W50,
-                        Div(() => NextCard(), Card.RenderCardback("green")),
+                        Div(() => NextCard(), Card.RenderCardback(Styles.CardGreen)),
                         CardDeck.Deck[CurrentCardIndex].Render()
                         ),
                     RenderFoundationPiles()
@@ -61,21 +59,19 @@ namespace Solitaire
         {
             return Row
                 (
-                CardDeck.FoundationpileClub.Count != 0 ? CardDeck.FoundationpileClub[CardDeck.FoundationpileClub.Count - 1].Render() : Card.RenderCardback("black", "Club"),
-                CardDeck.FoundationpileSpade.Count != 0 ? CardDeck.FoundationpileSpade[CardDeck.FoundationpileSpade.Count - 1].Render() : Card.RenderCardback("black", "Spade"),
-                CardDeck.FoundationpileHeart.Count != 0 ? CardDeck.FoundationpileHeart[CardDeck.FoundationpileHeart.Count - 1].Render() : Card.RenderCardback("red", "Heart"),
-                CardDeck.FoundationpileDiamonds.Count != 0 ? CardDeck.FoundationpileDiamonds[CardDeck.FoundationpileDiamonds.Count - 1].Render() : Card.RenderCardback("red", "Diamond")
+                CardDeck.FoundationpileClub.Count != 0 ? CardDeck.FoundationpileClub[CardDeck.FoundationpileClub.Count - 1].Render() : Card.RenderCardback(Styles.CardBlack, "Club"),
+                CardDeck.FoundationpileSpade.Count != 0 ? CardDeck.FoundationpileSpade[CardDeck.FoundationpileSpade.Count - 1].Render() : Card.RenderCardback(Styles.CardBlack, "Spade"),
+                CardDeck.FoundationpileHeart.Count != 0 ? CardDeck.FoundationpileHeart[CardDeck.FoundationpileHeart.Count - 1].Render() : Card.RenderCardback(Styles.CardRed, "Heart"),
+                CardDeck.FoundationpileDiamonds.Count != 0 ? CardDeck.FoundationpileDiamonds[CardDeck.FoundationpileDiamonds.Count - 1].Render() : Card.RenderCardback(Styles.CardRed, "Diamond")
                 );
         }
         private VNode RenderGamePiles()
         {
             return Div();
-
-
-
-
-
-
+            //    var x = CardDeck.Select((gamePile, index) => new { gamePile, index }).Where(index ;
+            //    Row(
+            //        RenderGamePile()
+            //        );
         }
     }
 }

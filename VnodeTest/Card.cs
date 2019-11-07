@@ -18,6 +18,7 @@ namespace Solitaire
 
         public Card(int cardDeckIndex)
         {
+            //enums
             Value = (cardDeckIndex % 13) + 1;
             PipID = cardDeckIndex / 13;
             if (PipID / 2 == 0)
@@ -59,17 +60,17 @@ namespace Solitaire
                 );
         }
 
-        public static VNode RenderCardback(string color, string title = "Deck")
+        public static VNode RenderCardback(Style color, string title = "Deck")
         {
             return Div
                 (
-                Styles.BorderedBox & Styles.W4C & Styles.M2,
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C).WithCustomStyle($"color: {color}"),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C).WithCustomStyle($"color: {color}"),
+                Styles.BorderedBox & Styles.W4C & Styles.M2& color,
+                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
+                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
                 Text(title, Styles.W4C & Styles.TextAlignC),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C).WithCustomStyle($"color: {color}"),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C).WithCustomStyle($"color: {color}")
-                ).WithCustomStyle($"border: 2px solid {color}");
+                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
+                Text("XXXXX", Styles.TextAlignC & Styles.W4C)
+                );
         }
     }
 }
