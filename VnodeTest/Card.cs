@@ -11,66 +11,62 @@ namespace Solitaire
     public class Card
     {
         public Style Color;
-        public int Value;
-        public int PipID;
-        public string PipSprite;
+        public CardModel CardSprite;
+        public PipModel PipSprite;
+        private int PipID;
 
 
         public Card(int cardDeckIndex)
         {
             //enums
-            Value = (cardDeckIndex % 13) + 1;
             PipID = cardDeckIndex / 13;
             if (PipID / 2 == 0)
                 Color = Styles.TCblack;
             else
                 Color = Styles.TCred;
+
+            CardSprite = GetCardSprite(cardDeckIndex % 13);
+            PipSprite = GetPipSprite();
+
+        }
+        private CardModel GetCardSprite(int cardID)
+        {
+            switch (cardID)
+            {
+                case 0: return CardModel.Ace;
+                case 2: return CardModel.Two;
+                case 3: return CardModel.Three;
+                case 4: return CardModel.Four;
+                case 5: return CardModel.Five;
+                case 6: return CardModel.Six;
+                case 7: return CardModel.Seven;
+                case 8: return CardModel.Eight;
+                case 9: return CardModel.Nine;
+                case 10: return CardModel.Ten;
+                case 11: return CardModel.Jack;
+                case 12: return CardModel.Queen;
+                case 13: return CardModel.King;
+                default: return CardModel.Zero;
+            }
+        }
+        private PipModel GetPipSprite()
+        {
+            switch (PipID)
+            {
+                case 0: return PipModel.Club;
+                case 1: return PipModel.Spade;
+                case 2: return PipModel.Heart;
+                case 3: return PipModel.Diamond;
+                default: return PipModel.Zero;
+            }
+        }
+        public enum PipModel { Club, Spade, Heart, Diamond, Zero }
+        public enum CardModel
+        {
+            Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Zero
         }
 
-        public VNode Render()
-        {
-            return Div
-                (
-                Styles.BorderedBoxBlack & Styles.W4C & Styles.M2,
-                RenderTopPart(),
-                RenderBody(),
-                RenderBottomPart()
-                );
-        }
-        public VNode RenderTopPart()
-        {
-            return Row
-                (
-                Styles.W4C,
-                Text($"{Value}", Color & Styles.W2C),
-                Text($"{PipID}", Color & Styles.TextAlignR & Styles.W2C)
-                );
-        }
-        private VNode RenderBody()
-        {
-            return Text($"{Value}", Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3);
-        }
-        private VNode RenderBottomPart()
-        {
-            return Row
-                (
-                Styles.W4C,
-                Text($"{PipID}", Color & Styles.W2C),
-                Text($"{Value}", Color & Styles.TextAlignR & Styles.W2C)
-                );
-        }
 
-        public static VNode RenderCardback(Style color, string title = "Deck")
-        {
-            return Div
-                (
-                Styles.BorderedBox & Styles.W4C & Styles.M2& color,
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
-                Text(title, Styles.W4C & Styles.TextAlignC),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C),
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C)
-                );
-        }
+      
     }
 }
