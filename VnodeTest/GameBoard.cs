@@ -24,14 +24,14 @@ namespace Solitaire
         {
 
         }
-        //not working propperly
         private void DealCards()
         {
-            for (int index = 0; index < 7; index++)
-            {
-                CardDeck.GamePiles[index].Add(CardDeck.Deck[0]);
-                CardDeck.Deck.Remove(CardDeck.Deck[0]);
-            }
+            for (int pileNumber = 0; pileNumber < 7; pileNumber++)
+                for (int index = 0; index < pileNumber + 1; index++)
+                {
+                    CardDeck.GamePiles[pileNumber].Add(CardDeck.Deck[0]);
+                    CardDeck.Deck.Remove(CardDeck.Deck[0]);
+                }
         }
         public VNode Render()
         {
@@ -64,7 +64,7 @@ namespace Solitaire
                 CardDeck.FoundationpileClub.Count != 0 ? CardDeck.FoundationpileClub[CardDeck.FoundationpileClub.Count - 1].Render() : Card.RenderCardback("black", "Club"),
                 CardDeck.FoundationpileSpade.Count != 0 ? CardDeck.FoundationpileSpade[CardDeck.FoundationpileSpade.Count - 1].Render() : Card.RenderCardback("black", "Spade"),
                 CardDeck.FoundationpileHeart.Count != 0 ? CardDeck.FoundationpileHeart[CardDeck.FoundationpileHeart.Count - 1].Render() : Card.RenderCardback("red", "Heart"),
-                CardDeck.FoundationpileDiamonds.Count != 0 ? CardDeck.FoundationpileDiamonds[CardDeck.FoundationpileDiamonds.Count - 1].Render() : Card.RenderCardback("red", "Diamonds")
+                CardDeck.FoundationpileDiamonds.Count != 0 ? CardDeck.FoundationpileDiamonds[CardDeck.FoundationpileDiamonds.Count - 1].Render() : Card.RenderCardback("red", "Diamond")
                 );
         }
         private VNode RenderGamePiles()
