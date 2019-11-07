@@ -140,12 +140,12 @@ namespace Solitaire
 
                      Def(CardRed,
                          BorderedBoxRed,
-                         TCgreen
+                         TCred
                          ),
 
                       Def(CardGreen,
                          BorderedBoxRed,
-                         TCred
+                         TCgreen
                          ),
 
                     Def(TextAlignR,
