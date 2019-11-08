@@ -8,6 +8,7 @@ using static ACL.UI.React.DOM;
 
 namespace Solitaire
 {
+    //TODO CLASSES
     public class GameBoard
     {
         public int CurrentCardIndex = 0;
@@ -55,11 +56,10 @@ namespace Solitaire
         }
         private void NextCard()
         {
-            if (Cards.Deck.CardPile.Count() != 0)
+            if (Cards.Deck.CardPile.Count != 0)
                 Cards.Graveyard.CardPile.Push(Cards.Deck.CardPile.Pop());
             else
-                foreach (Card card in Cards.Graveyard.CardPile)
-                    Cards.Deck.CardPile.Push(Cards.Graveyard.CardPile.Pop());
+                Cards.Deck = new CardStack(Cards.Graveyard.CardPile.Reverse());
         }
         private VNode RenderFoundationPiles()
         {
@@ -214,7 +214,7 @@ namespace Solitaire
             var isCardInPile = Cards.GamePiles.Where(s => s.CardPile.Contains(source)).
             if (target.CardPile.Contains(source))
 
-                if (Cards.Foundations[source.PipID].CardPile.Count == 0 && source.CardSprite == 0)
+                if (Cards.Foundations[(int)source.PipSprite].CardPile.Count == 0 && source.CardSprite == 0)
                 {
                     RemoveCard(source);
                     Cards.Foundations[source.PipID].CardPile.Push(source);
