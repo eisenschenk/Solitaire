@@ -13,6 +13,7 @@ namespace Solitaire
         public Style Color;
         public CardModel CardSprite;
         public PipModel PipSprite;
+        public bool IsFlipped;
         private int PipID;
 
 
@@ -34,18 +35,18 @@ namespace Solitaire
             switch (cardID)
             {
                 case 0: return CardModel.Ace;
-                case 2: return CardModel.Two;
-                case 3: return CardModel.Three;
-                case 4: return CardModel.Four;
-                case 5: return CardModel.Five;
-                case 6: return CardModel.Six;
-                case 7: return CardModel.Seven;
-                case 8: return CardModel.Eight;
-                case 9: return CardModel.Nine;
-                case 10: return CardModel.Ten;
-                case 11: return CardModel.Jack;
-                case 12: return CardModel.Queen;
-                case 13: return CardModel.King;
+                case 1: return CardModel.Two;
+                case 2: return CardModel.Three;
+                case 3: return CardModel.Four;
+                case 4: return CardModel.Five;
+                case 5: return CardModel.Six;
+                case 6: return CardModel.Seven;
+                case 7: return CardModel.Eight;
+                case 8: return CardModel.Nine;
+                case 9: return CardModel.Ten;
+                case 10: return CardModel.Jack;
+                case 11: return CardModel.Queen;
+                case 12: return CardModel.King;
                 default: return CardModel.Zero;
             }
         }

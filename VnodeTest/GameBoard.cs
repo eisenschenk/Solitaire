@@ -11,7 +11,7 @@ namespace Solitaire
     public class GameBoard
     {
         public int CurrentCardIndex = 0;
-        public CardPile CardDeck = new CardPile(52);
+        public CardDeck Cards = new CardDeck(52);
         public GameBoard()
         {
             ShuffleCardDeck();
@@ -27,8 +27,12 @@ namespace Solitaire
             for (int pileNumber = 0; pileNumber < 7; pileNumber++)
                 for (int index = 0; index < pileNumber + 1; index++)
                 {
-                    CardDeck.GamePiles[pileNumber].Add(CardDeck.Deck[0]);
-                    CardDeck.Deck.Remove(CardDeck.Deck[0]);
+                    if (index  == pileNumber)
+                        Cards.Deck[0].IsFlipped = true;
+                    else
+                        Cards.Deck[0].IsFlipped = false;
+                    Cards.GamePiles[pileNumber].CardPile.Push(Cards.Deck[0]);
+                    Cards.Deck.Remove(Cards.Deck[0]);
                 }
         }
         public VNode Render()
@@ -39,7 +43,7 @@ namespace Solitaire
                     Row(
                         Styles.W50,
                         Div(() => NextCard(), RenderCardback(Styles.CardGreen)),
-                        RenderCard(CardDeck.Deck[CurrentCardIndex])
+                        RenderCard(Cards.Deck[CurrentCardIndex])
                         ),
                     RenderFoundationPiles()
                     ),
@@ -50,7 +54,7 @@ namespace Solitaire
         }
         private void NextCard()
         {
-            if (CurrentCardIndex < CardDeck.Deck.Count - 1)
+            if (CurrentCardIndex < Cards.Deck.Count - 1)
                 CurrentCardIndex++;
             else
                 CurrentCardIndex = 0;
@@ -59,19 +63,24 @@ namespace Solitaire
         {
             return Row
                 (
-                CardDeck.FoundationpileClub.Count != 0 ? RenderCard(CardDeck.FoundationpileClub[CardDeck.FoundationpileClub.Count - 1]) : RenderCardback(Styles.CardBlack, "Club"),
-                CardDeck.FoundationpileSpade.Count != 0 ? RenderCard(CardDeck.FoundationpileSpade[CardDeck.FoundationpileSpade.Count - 1]) : RenderCardback(Styles.CardBlack, "Spade"),
-                CardDeck.FoundationpileHeart.Count != 0 ? RenderCard(CardDeck.FoundationpileHeart[CardDeck.FoundationpileHeart.Count - 1]) : RenderCardback(Styles.CardRed, "Heart"),
-                CardDeck.FoundationpileDiamonds.Count != 0 ? RenderCard(CardDeck.FoundationpileDiamonds[CardDeck.FoundationpileDiamonds.Count - 1]) : RenderCardback(Styles.CardRed, "Diamond")
+                Cards.Foundations[0].CardPile.Count != 0 ? RenderCard(Cards.Foundations[0].CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Club"),
+                Cards.Foundations[1].CardPile.Count != 0 ? RenderCard(Cards.Foundations[1].CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Spade"),
+                Cards.Foundations[2].CardPile.Count != 0 ? RenderCard(Cards.Foundations[2].CardPile.Peek()) : RenderCardback(Styles.CardRed, "Heart"),
+                Cards.Foundations[3].CardPile.Count != 0 ? RenderCard(Cards.Foundations[3].CardPile.Peek()) : RenderCardback(Styles.CardRed, "Diamond")
                 );
         }
         private VNode RenderGamePiles()
         {
-            return Div();
-            //    var x = CardDeck.Select((gamePile, index) => new { gamePile, index }).Where(index ;
-            //    Row(
-            //        RenderGamePile()
-            //        );
+            return Row(Cards.GamePiles.Select(p =>
+                  Col(
+                      Fragment(p.CardPile.Where(c => c.IsFlipped == false).Select(c => RenderCardbackTop())),
+                      Fragment(p.CardPile.Where(c => c.IsFlipped == true && c != p.CardPile.Peek()).Select(c => RenderCardTopPart(c))),
+                      RenderCard(p.CardPile.Peek())
+                      )
+                    )
+                );
+          
+
         }
         private VNode RenderCard(Card card)
         {
@@ -118,10 +127,18 @@ namespace Solitaire
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C)
                 );
         }
+        public static VNode RenderCardbackTop()
+        {
+            return Div
+                (
+                Styles.CardBackPartial & Styles.W4C & Styles.M2,
+                Text("XXXXX", Styles.TextAlignC & Styles.W4C)
+                );
+        }
 
         private string GetCardSprite(Card card)
         {
-            switch(card.CardSprite)
+            switch (card.CardSprite)
             {
                 case Card.CardModel.Ace: return "A";
                 case Card.CardModel.Two: return "2";

@@ -133,6 +133,15 @@ namespace Solitaire
                          Border("2px solid green")
                         ),
 
+                      Def(CardBackPartial,
+                         Padding("2px"),
+                         BorderRadius(".25rem .25rem 0rem 0rem"),
+                         Width("fit-content"),
+                         BorderWidth("2px 2px 0px 2px"),
+                         BorderStyle("solid"),
+                         BorderColor("green")
+                        ),
+
                      Def(CardBlack,
                          BorderedBoxBlack,
                          TCblack
@@ -238,6 +247,7 @@ namespace Solitaire
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
         public static readonly Style BorderedBoxRed;
+        public static readonly Style CardBackPartial;
 
         public static readonly Style CardRed;
         public static readonly Style CardBlack;

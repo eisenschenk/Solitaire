@@ -58,7 +58,8 @@
     <Compile Include="AppContext.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="CardPile.cs" />
+    <Compile Include="CardDeck.cs" />
+    <Compile Include="CardStack.cs" />
     <Compile Include="ColorThemeComponent.cs" />
     <Compile Include="PaginationComponent.cs" />
     <Compile Include="Program.cs" />
