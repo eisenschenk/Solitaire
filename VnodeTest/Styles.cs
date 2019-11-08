@@ -88,6 +88,10 @@ namespace Solitaire
                         Position("absolute")
                         ),
 
+                     Def(Relative,
+                        Position("relative")
+                        ),
+
                     Def(Btn,
                         BaseBtn,
                         BackgroundColor("green"),
@@ -111,6 +115,10 @@ namespace Solitaire
                         BaseBtn,
                         BackgroundColor("seagreen")
                         ),
+
+                    Def(Selected,
+                        BackgroundColor("green")
+                    ),
 
                     Def(BorderedBox,
                         Padding("2px"),
@@ -142,6 +150,13 @@ namespace Solitaire
                          BorderColor("green")
                         ),
 
+                      Def(CardEmptyBorderGreen,
+                          BorderedBoxGreen,
+                          W4C,
+                          H6,
+                          M2
+                          ),
+
                      Def(CardBlack,
                          BorderedBoxBlack,
                          TCblack
@@ -165,12 +180,26 @@ namespace Solitaire
                     TextAlign("center")
                     ),
 
+                    Def(AlignItemRight,
+                        Position("absolute"),
+                        Right("0px"),
+                        Width("fit-content")
+                        ),
+
                     Def(FlexRow,
                         FlexDirection("row")
                             ),
 
                     Def(HoverWhite,
                     GetHoverRule("white")
+                        ),
+
+                    Def(FitContent,
+                        Width("fit-content")
+                        ),
+
+                     Def(H6,
+                        Height("6rem")
                         ),
 
                     Def(W2C,
@@ -193,6 +222,10 @@ namespace Solitaire
                          Width("25%")
                          ),
 
+                    Def(W33,
+                         Width("33%")
+                         ),
+
                     Def(W50,
                          Width("50%")
                          ),
@@ -208,6 +241,7 @@ namespace Solitaire
         }
 
         public static readonly Style Absolute;
+        public static readonly Style Relative;
         public static readonly Style HoverWhite;
 
         public static readonly Style BCblack;
@@ -218,6 +252,8 @@ namespace Solitaire
         public static readonly Style TCgreen;
 
         public static readonly Style FontSize3;
+
+        public static readonly Style H6;
 
         public static readonly Style M2;
         public static readonly Style MX2;
@@ -232,6 +268,7 @@ namespace Solitaire
         public static readonly Style W6C;
 
         public static readonly Style W25;
+        public static readonly Style W33;
         public static readonly Style W50;
         public static readonly Style W75;
 
@@ -243,16 +280,22 @@ namespace Solitaire
         public static readonly Style AbortBtn;
         public static readonly Style SelectedBtn;
 
+        public static readonly Style Selected;
+
         public static readonly Style BorderedBox;
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
         public static readonly Style BorderedBoxRed;
         public static readonly Style CardBackPartial;
+        public static readonly Style CardEmptyBorderGreen;
 
         public static readonly Style CardRed;
         public static readonly Style CardBlack;
         public static readonly Style CardGreen;
 
+        public static readonly Style AlignItemRight;
+
+        public static readonly Style FitContent;
 
         public static readonly Style TextAlignR;
         public static readonly Style TextAlignC;

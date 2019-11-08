@@ -10,7 +10,6 @@ namespace Solitaire
     {
         public Stack<Card> CardPile = new Stack<Card>();
 
-
         public CardStack(List<Card> collection)
         {
             foreach (Card card in collection)
@@ -18,7 +17,6 @@ namespace Solitaire
         }
         public CardStack()
         {
-
         }
 
 

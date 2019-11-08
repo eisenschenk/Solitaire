@@ -61,6 +61,7 @@
     <Compile Include="CardDeck.cs" />
     <Compile Include="CardStack.cs" />
     <Compile Include="ColorThemeComponent.cs" />
+    <Compile Include="DragController.cs" />
     <Compile Include="PaginationComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

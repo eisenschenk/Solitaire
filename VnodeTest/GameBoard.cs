@@ -12,6 +12,8 @@ namespace Solitaire
     {
         public int CurrentCardIndex = 0;
         public CardDeck Cards = new CardDeck(52);
+        public Card CurrentCard;
+        private Card IsSelected;
         public GameBoard()
         {
             ShuffleCardDeck();
@@ -27,12 +29,11 @@ namespace Solitaire
             for (int pileNumber = 0; pileNumber < 7; pileNumber++)
                 for (int index = 0; index < pileNumber + 1; index++)
                 {
-                    if (index  == pileNumber)
-                        Cards.Deck[0].IsFlipped = true;
+                    if (index == pileNumber)
+                        Cards.Deck.CardPile.Peek().IsFlipped = true;
                     else
-                        Cards.Deck[0].IsFlipped = false;
-                    Cards.GamePiles[pileNumber].CardPile.Push(Cards.Deck[0]);
-                    Cards.Deck.Remove(Cards.Deck[0]);
+                        Cards.Deck.CardPile.Peek().IsFlipped = false;
+                    Cards.GamePiles[pileNumber].CardPile.Push(Cards.Deck.CardPile.Pop());
                 }
         }
         public VNode Render()
@@ -41,9 +42,9 @@ namespace Solitaire
                 (
                 Row(
                     Row(
-                        Styles.W50,
+                        Styles.FitContent & Styles.W33,
                         Div(() => NextCard(), RenderCardback(Styles.CardGreen)),
-                        RenderCard(Cards.Deck[CurrentCardIndex])
+                        RenderCard(Cards.Graveyard.CardPile.Peek())
                         ),
                     RenderFoundationPiles()
                     ),
@@ -54,10 +55,11 @@ namespace Solitaire
         }
         private void NextCard()
         {
-            if (CurrentCardIndex < Cards.Deck.Count - 1)
-                CurrentCardIndex++;
+            if (Cards.Deck.CardPile.Count() != 0)
+                Cards.Graveyard.CardPile.Push(Cards.Deck.CardPile.Pop());
             else
-                CurrentCardIndex = 0;
+                foreach (Card card in Cards.Graveyard.CardPile)
+                    Cards.Deck.CardPile.Push(Cards.Graveyard.CardPile.Pop());
         }
         private VNode RenderFoundationPiles()
         {
@@ -71,35 +73,58 @@ namespace Solitaire
         }
         private VNode RenderGamePiles()
         {
-            return Row(Cards.GamePiles.Select(p =>
-                  Col(
-                      Fragment(p.CardPile.Where(c => c.IsFlipped == false).Select(c => RenderCardbackTop())),
-                      Fragment(p.CardPile.Where(c => c.IsFlipped == true && c != p.CardPile.Peek()).Select(c => RenderCardTopPart(c))),
-                      RenderCard(p.CardPile.Peek())
-                      )
-                    )
-                );
-          
-
+            VNode RenderGamePile(CardStack stack)
+            {
+                if (stack.CardPile.Count != 0)
+                    return Col(
+                         Fragment(stack.CardPile.Where(c => c.IsFlipped == false).Select(c => RenderCardbackTop())),
+                         Fragment(stack.CardPile.Where(c => c.IsFlipped == true && c != stack.CardPile.Peek()).Select(c => RenderCardTopPart(c))),
+                         RenderCard(stack.CardPile.Peek())
+                     );
+                else
+                    return RenderEmptyCard();
+            }
+            return Row(Cards.GamePiles.Select(p => RenderGamePile(p)));
         }
         private VNode RenderCard(Card card)
         {
-            return Div
-                (
+            var div = Div(
                 Styles.BorderedBoxBlack & Styles.W4C & Styles.M2,
                 RenderCardTopPart(card),
                 RenderCardBody(card),
                 RenderCardBottomPart(card)
-                );
+            );
+            div.OnClick = () => ClickCard(card);
+            //div.Drag = new DragInfo(DragMode.Source);
+            //div.OnDrag = DragCard;
+
+            return div;
         }
+
+        private void DragCard(DragContext context, DragAction action, VNode target)
+        {
+            switch (action)
+            {
+                case DragAction.Drag:
+                    RemoveCard(CurrentCard);
+
+
+                    break;
+
+                case DragAction.Drop:
+
+                    break;
+            }
+
+        }
+
         private VNode RenderCardTopPart(Card card)
         {
-            return Row
-                (
+            return Row(
                 Styles.W4C,
                 Text($"{GetCardSprite(card)}", card.Color & Styles.W2C),
                 Text($"{GetPipSprite(card)}", card.Color & Styles.TextAlignR & Styles.W2C)
-                );
+            );
         }
         private VNode RenderCardBody(Card card)
         {
@@ -107,33 +132,34 @@ namespace Solitaire
         }
         private VNode RenderCardBottomPart(Card card)
         {
-            return Row
-                (
+            return Row(
                 Styles.W4C,
                 Text($"{GetPipSprite(card)}", card.Color & Styles.W2C),
                 Text($"{GetCardSprite(card)}", card.Color & Styles.TextAlignR & Styles.W2C)
-                );
+            );
         }
 
         public static VNode RenderCardback(Style color, string title = "Deck")
         {
-            return Div
-                (
+            return Div(
                 Styles.BorderedBox & Styles.W4C & Styles.M2 & color,
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C),
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C),
                 Text(title, Styles.W4C & Styles.TextAlignC),
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C),
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C)
-                );
+            );
         }
         public static VNode RenderCardbackTop()
         {
-            return Div
-                (
+            return Div(
                 Styles.CardBackPartial & Styles.W4C & Styles.M2,
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C)
-                );
+            );
+        }
+        private static VNode RenderEmptyCard()
+        {
+            return Div(Styles.CardEmptyBorderGreen);
         }
 
         private string GetCardSprite(Card card)
@@ -169,5 +195,51 @@ namespace Solitaire
 
         }
 
+        private void ClickCard(Card card)
+        {
+            if (IsSelected == null && card.IsFlipped)
+                IsSelected = card;
+            else if (IsSelected == card)
+                IsSelected = null;
+            else
+                MoveSelected(card, GetCardPile(card));
+        }
+        //TODO
+        private void MoveSelected(Card source, CardStack target)
+        {
+            if (target == Cards.Foundations[source.PipID])
+            {
+
+            }
+            var isCardInPile = Cards.GamePiles.Where(s => s.CardPile.Contains(source)).
+            if (target.CardPile.Contains(source))
+
+                if (Cards.Foundations[source.PipID].CardPile.Count == 0 && source.CardSprite == 0)
+                {
+                    RemoveCard(source);
+                    Cards.Foundations[source.PipID].CardPile.Push(source);
+                    return;
+                }
+            if (Cards.Foundations[source.PipID].CardPile.Count != 0 && Cards.Foundations[source.PipID].CardPile.Peek().CardDeckIndex == source.CardDeckIndex - 1)
+            {
+                RemoveCard(source);
+                Cards.Foundations[source.PipID].CardPile.Push(source);
+            }
+        }
+        private void RemoveCard(Card card)
+        {
+            if (Cards.Graveyard.CardPile.Peek() == card)
+                Cards.Graveyard.CardPile.Pop();
+            foreach (CardStack stack in Cards.Foundations)
+                if (stack.CardPile.Peek() == card)
+                    stack.CardPile.Pop();
+            foreach (CardStack stack in Cards.GamePiles)
+                if (stack.CardPile.Peek() == card)
+                    stack.CardPile.Pop();
+        }
+        private void Drag(Card card)
+        {
+
+        }
     }
 }

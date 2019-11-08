@@ -9,15 +9,15 @@ namespace Solitaire
 {
     public class CardDeck
     {
-        public List<Card> Deck = new List<Card>();
+        public CardStack Deck = new CardStack();
+        public CardStack Graveyard = new CardStack();
         public List<CardStack> Foundations = new List<CardStack>();
         public List<CardStack> GamePiles = new List<CardStack>();
 
         public CardDeck(int count)
         {
-            //enums
             for (int index = 0; index < 52; index++)
-                Deck.Add(new Card(index));
+                Deck.CardPile.Push(new Card(index));
             for (int index = 0; index < 7; index++)
                 GamePiles.Add(new CardStack());
             for (int index = 0; index < 4; index++)

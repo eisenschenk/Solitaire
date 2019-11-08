@@ -14,12 +14,13 @@ namespace Solitaire
         public CardModel CardSprite;
         public PipModel PipSprite;
         public bool IsFlipped;
-        private int PipID;
+        public int PipID;
+        public int CardDeckIndex;
 
 
         public Card(int cardDeckIndex)
         {
-            //enums
+            CardDeckIndex = cardDeckIndex;
             PipID = cardDeckIndex / 13;
             if (PipID / 2 == 0)
                 Color = Styles.TCblack;
