@@ -14,7 +14,10 @@ namespace Solitaire
         {
             if (TableauSource.CardPile.Count != 0)
             {
+                if (!TableauGraveyard.IsEmpty)
+                    TableauGraveyard.CardPile.Peek().IsFlipped = false;
                 TableauGraveyard.CardPile.Push(TableauSource.CardPile.Pop());
+                TableauGraveyard.CardPile.Peek().IsFlipped = true;
                 TableauGraveyard.IsEmpty = false;
             }
             else

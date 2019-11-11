@@ -6,44 +6,66 @@ using System.Threading.Tasks;
 
 namespace Solitaire
 {
-    public class CardStack
+    public class CardStack : BaseStack
     {
-        public Stack<Card> CardPile = new Stack<Card>();
-        private Stack<Card> TempPile = new Stack<Card>();
         public bool IsEmpty = true;
         public CardStack(IEnumerable<Card> collection)
-        {
-            CardPile = new Stack<Card>(collection);
-        }
+            : base(collection) { }
+
         public CardStack()
         {
 
         }
-        public void TryMove(CardStack target)
+        private CardStack GetTempStack(Card card)
         {
-            var targetCard = target.CardPile.Peek();
-            var sourceCard = CardPile.Peek();
-            var fTarget = (FoundationStack)target;
-            if (target is CardStack && targetCard.PipValue == sourceCard.PipValue && targetCard.CardValue == sourceCard.CardValue + 1)
-            {
-                foreach (Card card in CardPile)
-                    TempPile.Push(CardPile.Pop());
-                foreach (Card card in TempPile)
-                    target.CardPile.Push(TempPile.Pop());
-                target.IsEmpty = false;
-                if (CardPile.Count == 0)
-                    IsEmpty = true;
-            }
+            CardStack tempStack = new CardStack();
+            var sourcePeak = Peek();
+            do
+                if (tempStack.IsEmpty || tempStack.Peek().Color != sourcePeak.Color && tempStack.Peek().CardValue == sourcePeak.CardValue - 1)
+                    tempStack.Push(Pop());
+
+            while (tempStack.Peek() != card);
+            if (Count == 0)
+                IsEmpty = true;
+            else
+                Peek().IsFlipped = true;
+
+            return tempStack;
+        }
+        public void TryMove(CardStack target, Card sourceCard)
+        {
+            //var targetCard = target.Peek();
+
+            ////cardstack source
+            //if (target is CardStack && !target.IsEmpty && targetCard.Color != sourceCard.Color && targetCard.CardValue == sourceCard.CardValue + 1)
+            //{
+            //    var tempStack = GetTempStack(sourceCard);
+            //    while (tempStack.Count != 0)
+            //        target.TryPush(tempStack);
+            //}
+
+            //foundation source
+            //TODO REDO
             if (target is FoundationStack)
             {
-                if (CardPile.Count == 1 && fTarget.PipSprite == sourceCard.PipSprite && (target.IsEmpty || targetCard.CardValue == sourceCard.CardValue - 1))
+                var fTarget = (FoundationStack)target;
+                if (Count == 1 && fTarget.PipSprite == sourceCard.PipSprite && (target.IsEmpty || targetCard.CardValue == sourceCard.CardValue - 1))
                 {
-                    target.CardPile.Push(CardPile.Pop());
+                    fTarget.Push(Pop());
                     target.IsEmpty = false;
                 }
             }
-            if (CardPile.Count == 0)
-                IsEmpty = true;
+
+
+        }
+        private bool CanPush(CardStack target, Card card)
+        {
+            if (!target.IsEmpty && target.Peek().Color != card.Color && target.Peek().CardValue == card.CardValue + 1)
+            {
+                var tempStack = GetTempStack(card);
+                while (tempStack.Count != 0)
+                    target.TryPush(tempStack);
+            }
         }
 
 

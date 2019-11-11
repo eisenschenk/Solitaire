@@ -19,7 +19,6 @@ namespace Solitaire
         public bool IsSelected;
         private int PipID;
 
-
         public Card(int cardDeckIndex)
         {
             PipID = cardDeckIndex / 13;
@@ -104,21 +103,15 @@ namespace Solitaire
             }
         }
 
-        public void Click(CardStack source, CardStack target)
-        {
-            if (IsSelected == false && IsFlipped)
-                IsSelected = true;
-            else if (IsSelected == true)
-                IsSelected = false;
-            else
-                source.TryMove(target);
-        }
+
 
         public CardStack TryGetStack(Deck deck)
         {
+            //GamePiles
             foreach (CardStack stack in deck.GamePiles)
                 if (stack.CardPile.Contains(this))
                     return stack;
+            //Foundations
             if (deck.Foundations.Club.CardPile.Contains(this))
                 return deck.Foundations.Club;
             else if (deck.Foundations.Spade.CardPile.Contains(this))
@@ -127,7 +120,10 @@ namespace Solitaire
                 return deck.Foundations.Heart;
             else if (deck.Foundations.Diamond.CardPile.Contains(this))
                 return deck.Foundations.Diamond;
-            else
+            //Tableau
+            if (deck.Tableau.TableauGraveyard.CardPile.Contains(this))
+                return deck.Tableau.TableauGraveyard;
+            
                 return null;
         }
 

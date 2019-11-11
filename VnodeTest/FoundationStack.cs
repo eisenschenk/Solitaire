@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Solitaire
 {
-    public class FoundationStack : CardStack
+    public class FoundationStack : BaseStack
     {
         public string PipSprite;
 

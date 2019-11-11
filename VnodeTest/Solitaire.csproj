@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AppContext.cs" />
     <Compile Include="Application.cs" />
+    <Compile Include="BaseStack.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="Foundations.cs" />
     <Compile Include="FoundationStack.cs" />

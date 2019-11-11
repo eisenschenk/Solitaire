@@ -126,6 +126,15 @@ namespace Solitaire
                         Width("fit-content")
                         ),
 
+                     Def(BorderedBoxPartial,
+                        Padding("2px"),
+                        BorderRadius(".25rem .25rem 0rem 0rem"),
+                        Width("fit-content"),
+                        BorderWidth("2px 2px 0px 2px"),
+                        BorderStyle("solid"),
+                        BorderColor("black")
+                        ),
+
                     Def(BorderedBoxBlack,
                         BorderedBox,
                         Border("2px solid black")
@@ -283,6 +292,7 @@ namespace Solitaire
         public static readonly Style Selected;
 
         public static readonly Style BorderedBox;
+        public static readonly Style BorderedBoxPartial;
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
         public static readonly Style BorderedBoxRed;

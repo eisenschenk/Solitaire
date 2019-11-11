@@ -53,8 +53,7 @@ namespace Solitaire
             {
                 if (stack.CardPile.Count != 0)
                     return Col(
-                         Fragment(stack.CardPile.Where(c => c.IsFlipped == false).Select(c => RenderCardbackTop())),
-                         Fragment(stack.CardPile.Where(c => c.IsFlipped == true && c != stack.CardPile.Peek()).Select(c => RenderCardTopPart(c))),
+                         Fragment(stack.CardPile.Reverse().Take(stack.CardPile.Count - 1).Select(c => RenderOverlappedCard(c))),
                          RenderCard(stack.CardPile.Peek())
                      );
                 else
@@ -65,39 +64,52 @@ namespace Solitaire
         private VNode RenderCard(Card card)
         {
             var div = Div(
-                Styles.BorderedBoxBlack & Styles.W4C & Styles.M2,
-                RenderCardTopPart(card),
-                RenderCardBody(card),
-                RenderCardBottomPart(card)
+                Styles.BorderedBoxBlack & card.Color & Styles.W4C & Styles.M2,
+                Row(
+                    Styles.W4C,
+                    Text($"{card.CardSprite}", card.Color & Styles.W2C),
+                    Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
+                ),
+                Text($"{card.CardSprite}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3),
+                Row(
+                    Styles.W4C,
+                    Text($"{card.PipSprite}", card.Color & Styles.W2C),
+                    Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
+                )
             );
-            div.OnClick = () => card.Click(card.TryGetStack(Cards), Selected.TryGetStack(Cards));
+            div.OnClick = () => Click(card);
 
             return div;
         }
 
-
-
-        private VNode RenderCardTopPart(Card card)
+        public void Click(Card card)
         {
-            return Row(
-                Styles.W4C,
+            if (Selected == null && card.IsFlipped)
+                Selected = card;
+            else if (Selected == card)
+                Selected = null;
+            else
+            {
+                Selected.TryGetStack(Cards).TryMove(card.TryGetStack(Cards), Selected);
+                Selected = null;
+            }
+        }
+        private VNode RenderOverlappedCard(Card card)
+        {
+            if (!card.IsFlipped)
+                return Div(
+                    Styles.CardBackPartial & Styles.W4C & Styles.M2,
+                    Text("XXXXX", Styles.TextAlignC & Styles.W4C)
+                );
+
+            var row = Row(
+                Styles.W4C & Styles.BorderedBoxPartial & Styles.M2,
                 Text($"{card.CardSprite}", card.Color & Styles.W2C),
                 Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
             );
+            row.OnClick = () => Click(card);
+            return row;
         }
-        private VNode RenderCardBody(Card card)
-        {
-            return Text($"{card.CardSprite}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3);
-        }
-        private VNode RenderCardBottomPart(Card card)
-        {
-            return Row(
-                Styles.W4C,
-                Text($"{card.PipSprite}", card.Color & Styles.W2C),
-                Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
-            );
-        }
-
         public static VNode RenderCardback(Style color, string title = "Deck")
         {
             return Div(
@@ -109,46 +121,9 @@ namespace Solitaire
                 Text("XXXXX", Styles.TextAlignC & Styles.W4C)
             );
         }
-        public static VNode RenderCardbackTop()
-        {
-            return Div(
-                Styles.CardBackPartial & Styles.W4C & Styles.M2,
-                Text("XXXXX", Styles.TextAlignC & Styles.W4C)
-            );
-        }
         private static VNode RenderEmptyCard()
         {
             return Div(Styles.CardEmptyBorderGreen);
         }
-
-
-
-
-
-        //TODO
-        //private void MoveSelected(Card source, CardStack target)
-        //{
-        //    if (target == Cards.Foundations[source.PipID])
-        //    {
-
-        //    }
-        //    var isCardInPile = Cards.GamePiles.Where(s => s.CardPile.Contains(source)).
-        //    if (target.CardPile.Contains(source))
-
-        //        if (Cards.Foundations[(int)source.PipSprite].CardPile.Count == 0 && source.CardSprite == 0)
-        //        {
-        //            RemoveCard(source);
-        //            Cards.Foundations[source.PipID].CardPile.Push(source);
-        //            return;
-        //        }
-        //    if (Cards.Foundations[source.PipID].CardPile.Count != 0 && Cards.Foundations[source.PipID].CardPile.Peek().CardDeckIndex == source.CardDeckIndex - 1)
-        //    {
-        //        RemoveCard(source);
-        //        Cards.Foundations[source.PipID].CardPile.Push(source);
-        //    }
-        //}
-
-        //}
-
     }
 }
