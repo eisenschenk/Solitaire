@@ -12,63 +12,39 @@ namespace Solitaire
     public class GameBoard
     {
         public int CurrentCardIndex = 0;
-        public CardDeck Cards = new CardDeck(52);
-        public Card CurrentCard;
-        private Card IsSelected;
+        public Deck Cards = new Deck(52);
+        public Card Selected;
         public GameBoard()
         {
-            ShuffleCardDeck();
-            DealCards();
+            Cards.Tableau.ShuffleDeck();
+            Cards.DealCards();
         }
-        //TODO
-        private void ShuffleCardDeck()
-        {
 
-        }
-        private void DealCards()
-        {
-            for (int pileNumber = 0; pileNumber < 7; pileNumber++)
-                for (int index = 0; index < pileNumber + 1; index++)
-                {
-                    if (index == pileNumber)
-                        Cards.Deck.CardPile.Peek().IsFlipped = true;
-                    else
-                        Cards.Deck.CardPile.Peek().IsFlipped = false;
-                    Cards.GamePiles[pileNumber].CardPile.Push(Cards.Deck.CardPile.Pop());
-                }
-        }
         public VNode Render()
         {
-            return Div
-                (
-                Row(
+            return Div(
                     Row(
-                        Styles.FitContent & Styles.W33,
-                        Div(() => NextCard(), RenderCardback(Styles.CardGreen)),
-                        RenderCard(Cards.Graveyard.CardPile.Peek())
+                        Row(
+                            Styles.FitContent & Styles.W33,
+                            Div(() => Cards.Tableau.NextCard(), RenderCardback(Styles.CardGreen)),
+                            Cards.Tableau.TableauGraveyard.IsEmpty ? RenderEmptyCard() : RenderCard(Cards.Tableau.TableauGraveyard.CardPile.Peek())
                         ),
-                    RenderFoundationPiles()
+                        RenderFoundationPiles()
                     ),
-                RenderGamePiles()
-                );
+                    RenderGamePiles()
+            );
 
 
         }
-        private void NextCard()
-        {
-            if (Cards.Deck.CardPile.Count != 0)
-                Cards.Graveyard.CardPile.Push(Cards.Deck.CardPile.Pop());
-            else
-                Cards.Deck = new CardStack(Cards.Graveyard.CardPile.Reverse());
-        }
+
         private VNode RenderFoundationPiles()
         {
             return Row
                 (
-                Cards.Foundations[0].CardPile.Count != 0 ? RenderCard(Cards.Foundations[0].CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Club"),
-                Cards.Foundations[1].CardPile.Count != 0 ? RenderCard(Cards.Foundations[1].CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Spade"),
-                Cards.Foundations[2].CardPile.Count != 0 ? RenderCard(Cards.Foundations[2].CardPile.Peek()) : RenderCardback(Styles.CardRed, "Heart"),
-                Cards.Foundations[3].CardPile.Count != 0 ? RenderCard(Cards.Foundations[3].CardPile.Peek()) : RenderCardback(Styles.CardRed, "Diamond")
+                Cards.Foundations.Club.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Club.CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Club"),
+                Cards.Foundations.Spade.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Spade.CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Spade"),
+                Cards.Foundations.Heart.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Heart.CardPile.Peek()) : RenderCardback(Styles.CardRed, "Heart"),
+                Cards.Foundations.Diamond.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Diamond.CardPile.Peek()) : RenderCardback(Styles.CardRed, "Diamond")
                 );
         }
         private VNode RenderGamePiles()
@@ -94,48 +70,31 @@ namespace Solitaire
                 RenderCardBody(card),
                 RenderCardBottomPart(card)
             );
-            div.OnClick = () => ClickCard(card);
-            //div.Drag = new DragInfo(DragMode.Source);
-            //div.OnDrag = DragCard;
+            div.OnClick = () => card.Click(card.TryGetStack(Cards), Selected.TryGetStack(Cards));
 
             return div;
         }
 
-        private void DragCard(DragContext context, DragAction action, VNode target)
-        {
-            switch (action)
-            {
-                case DragAction.Drag:
-                    RemoveCard(CurrentCard);
 
-
-                    break;
-
-                case DragAction.Drop:
-
-                    break;
-            }
-
-        }
 
         private VNode RenderCardTopPart(Card card)
         {
             return Row(
                 Styles.W4C,
-                Text($"{GetCardSprite(card)}", card.Color & Styles.W2C),
-                Text($"{GetPipSprite(card)}", card.Color & Styles.TextAlignR & Styles.W2C)
+                Text($"{card.CardSprite}", card.Color & Styles.W2C),
+                Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
             );
         }
         private VNode RenderCardBody(Card card)
         {
-            return Text($"{GetCardSprite(card)}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3);
+            return Text($"{card.CardSprite}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3);
         }
         private VNode RenderCardBottomPart(Card card)
         {
             return Row(
                 Styles.W4C,
-                Text($"{GetPipSprite(card)}", card.Color & Styles.W2C),
-                Text($"{GetCardSprite(card)}", card.Color & Styles.TextAlignR & Styles.W2C)
+                Text($"{card.PipSprite}", card.Color & Styles.W2C),
+                Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
             );
         }
 
@@ -162,84 +121,34 @@ namespace Solitaire
             return Div(Styles.CardEmptyBorderGreen);
         }
 
-        private string GetCardSprite(Card card)
-        {
-            switch (card.CardSprite)
-            {
-                case Card.CardModel.Ace: return "A";
-                case Card.CardModel.Two: return "2";
-                case Card.CardModel.Three: return "3";
-                case Card.CardModel.Four: return "4";
-                case Card.CardModel.Five: return "5";
-                case Card.CardModel.Six: return "6";
-                case Card.CardModel.Seven: return "7";
-                case Card.CardModel.Eight: return "8";
-                case Card.CardModel.Nine: return "9";
-                case Card.CardModel.Ten: return "10";
-                case Card.CardModel.Jack: return "J";
-                case Card.CardModel.Queen: return "Q";
-                case Card.CardModel.King: return "K";
-                default: return "0";
-            }
-        }
-        private string GetPipSprite(Card card)
-        {
-            switch (card.PipSprite)
-            {
-                case Card.PipModel.Club: return "♣";
-                case Card.PipModel.Spade: return "♠";
-                case Card.PipModel.Heart: return "♥";
-                case Card.PipModel.Diamond: return "♦";
-                default: return "0";
-            }
 
-        }
 
-        private void ClickCard(Card card)
-        {
-            if (IsSelected == null && card.IsFlipped)
-                IsSelected = card;
-            else if (IsSelected == card)
-                IsSelected = null;
-            else
-                MoveSelected(card, GetCardPile(card));
-        }
+
+
         //TODO
-        private void MoveSelected(Card source, CardStack target)
-        {
-            if (target == Cards.Foundations[source.PipID])
-            {
+        //private void MoveSelected(Card source, CardStack target)
+        //{
+        //    if (target == Cards.Foundations[source.PipID])
+        //    {
 
-            }
-            var isCardInPile = Cards.GamePiles.Where(s => s.CardPile.Contains(source)).
-            if (target.CardPile.Contains(source))
+        //    }
+        //    var isCardInPile = Cards.GamePiles.Where(s => s.CardPile.Contains(source)).
+        //    if (target.CardPile.Contains(source))
 
-                if (Cards.Foundations[(int)source.PipSprite].CardPile.Count == 0 && source.CardSprite == 0)
-                {
-                    RemoveCard(source);
-                    Cards.Foundations[source.PipID].CardPile.Push(source);
-                    return;
-                }
-            if (Cards.Foundations[source.PipID].CardPile.Count != 0 && Cards.Foundations[source.PipID].CardPile.Peek().CardDeckIndex == source.CardDeckIndex - 1)
-            {
-                RemoveCard(source);
-                Cards.Foundations[source.PipID].CardPile.Push(source);
-            }
-        }
-        private void RemoveCard(Card card)
-        {
-            if (Cards.Graveyard.CardPile.Peek() == card)
-                Cards.Graveyard.CardPile.Pop();
-            foreach (CardStack stack in Cards.Foundations)
-                if (stack.CardPile.Peek() == card)
-                    stack.CardPile.Pop();
-            foreach (CardStack stack in Cards.GamePiles)
-                if (stack.CardPile.Peek() == card)
-                    stack.CardPile.Pop();
-        }
-        private void Drag(Card card)
-        {
+        //        if (Cards.Foundations[(int)source.PipSprite].CardPile.Count == 0 && source.CardSprite == 0)
+        //        {
+        //            RemoveCard(source);
+        //            Cards.Foundations[source.PipID].CardPile.Push(source);
+        //            return;
+        //        }
+        //    if (Cards.Foundations[source.PipID].CardPile.Count != 0 && Cards.Foundations[source.PipID].CardPile.Peek().CardDeckIndex == source.CardDeckIndex - 1)
+        //    {
+        //        RemoveCard(source);
+        //        Cards.Foundations[source.PipID].CardPile.Push(source);
+        //    }
+        //}
 
-        }
+        //}
+
     }
 }
