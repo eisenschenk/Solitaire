@@ -16,8 +16,6 @@ namespace Solitaire
 
         public Foundations()
         {
-
-
         }
         public enum PipModel { Club, Spade, Heart, Diamond, Zero }
 

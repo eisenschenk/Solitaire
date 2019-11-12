@@ -23,11 +23,9 @@ namespace Solitaire
             do
                 if (tempStack.IsEmpty || (tempStack.Peek().Color != Peek().Color && tempStack.Peek().CardValue == Peek().CardValue - 1))
                     tempStack.Push(Pop());
-
+            
             while (tempStack.Peek() != card);
-            if (!IsEmpty)
-                Peek().IsFlipped = true;
-
+            
             return tempStack;
         }
         public bool TryPush(Card sourceCard, BaseStack sourceStack)

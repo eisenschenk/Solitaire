@@ -11,19 +11,13 @@ namespace Solitaire
         public TableauStack(IEnumerable<Card> collection)
             : base(collection)
         {
-
         }
         public TableauStack()
         {
-
         }
         public override bool CanPush(Card card)
         {
             return false;
         }
-
-
-
-
     }
 }

@@ -15,7 +15,7 @@ namespace Solitaire
         public PipModel PipValue;
         public string CardSprite;
         public string PipSprite;
-        public bool IsFlipped;
+        public bool IsFaceUp;
         public Card(int cardDeckIndex)
         {
             CardValue = GetCardValue(cardDeckIndex % 13);

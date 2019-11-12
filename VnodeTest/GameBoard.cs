@@ -17,7 +17,6 @@ namespace Solitaire
         {
             Cards.DealCards();
         }
-
         public VNode Render()
         {
             return Div(
@@ -31,10 +30,7 @@ namespace Solitaire
                     ),
                     RenderGamePiles()
             );
-
-
         }
-
         private VNode RenderFoundationPiles()
         {
             return Row
@@ -63,7 +59,6 @@ namespace Solitaire
             }
             return Row(Cards.GamePiles.Select(p => RenderGamePile(p)));
         }
-        //render karten zugedeckt
         private VNode RenderCard(Card card)
         {
             Style boxStyle;
@@ -71,28 +66,36 @@ namespace Solitaire
                 boxStyle = Styles.BorderedBoxPurple;
             else
                 boxStyle = Styles.BorderedBoxBlack;
-            var div = Div(
-                card.Color & Styles.W4C & Styles.M2 & boxStyle,
-                Row(
-                    Styles.W4C,
-                    Text($"{card.CardSprite}", card.Color & Styles.W2C),
-                    Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
-                ),
-                Text($"{card.CardSprite}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3),
-                Row(
-                    Styles.W4C,
-                    Text($"{card.PipSprite}", card.Color & Styles.W2C),
-                    Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
-                )
-            );
-            div.OnClick = () => ClickCard(card);
+            if (card.IsFaceUp)
+            {
+                var div = Div(
+                    card.Color & Styles.W4C & Styles.M2 & boxStyle,
+                    Row(
+                        Styles.W4C,
+                        Text($"{card.CardSprite}", card.Color & Styles.W2C),
+                        Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
+                    ),
+                    Text($"{card.CardSprite}", card.Color & Styles.TextAlignC & Styles.W4C & Styles.FontSize3),
+                    Row(
+                        Styles.W4C,
+                        Text($"{card.PipSprite}", card.Color & Styles.W2C),
+                        Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
+                    )
+                );
+                div.OnClick = () => ClickCard(card);
+                return div;
+            }
+            else
+            {
+                var div = Div(RenderCardback(Styles.CardGreen, "Click me!"));
+                div.OnClick = () => card.IsFaceUp = true;
+                return div;
+            }
 
-            return div;
         }
-
         public void ClickCard(Card card)
         {
-            if (Selected == null && card.IsFlipped)
+            if (Selected == null && card.IsFaceUp)
                 Selected = card;
             else if (Selected == card)
                 Selected = null;
@@ -102,10 +105,6 @@ namespace Solitaire
                 Selected = null;
             }
         }
-        public void ClickEmptyStack(Deck cards, Card selected)
-        {
-
-        }
         private VNode RenderOverlappedCard(Card card)
         {
             Style cardStyle;
@@ -114,7 +113,7 @@ namespace Solitaire
             else
                 cardStyle = Styles.BorderedBoxPartial;
 
-            if (!card.IsFlipped)
+            if (!card.IsFaceUp)
                 return Div(
                     Styles.CardBackPartial & Styles.W4C & Styles.M2,
                     Text("XXXXX", Styles.TextAlignC & Styles.W4C)

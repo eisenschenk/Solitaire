@@ -24,7 +24,6 @@ namespace Solitaire
 
             for (int index = 0; index < GamePiles.Count(); index++)
                 GamePiles[index] = new CardStack();
-
         }
 
         public enum GamePileID { One, Two, Three, Four, Five, Six, Seven }
@@ -35,9 +34,9 @@ namespace Solitaire
                 for (int index = 0; index < pileNumber + 1; index++)
                 {
                     if (index == pileNumber)
-                        Tableau.TableauSource.Peek().IsFlipped = true;
+                        Tableau.TableauSource.Peek().IsFaceUp = true;
                     else
-                        Tableau.TableauSource.Peek().IsFlipped = false;
+                        Tableau.TableauSource.Peek().IsFaceUp = false;
                     GamePiles[pileNumber].Push(Tableau.TableauSource.Pop());
                 }
         }

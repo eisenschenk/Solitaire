@@ -14,7 +14,6 @@ namespace Solitaire
 
         public CardStack()
         {
-
         }
         public override bool CanPush(Card card)
         {

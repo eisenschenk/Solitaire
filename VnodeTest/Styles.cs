@@ -181,15 +181,6 @@ namespace Solitaire
                          BorderColor("green")
                         ),
 
-                      //Def(CardBackPartial,
-                      //   Padding("2px"),
-                      //   BorderRadius(".25rem .25rem 0rem 0rem"),
-                      //   Width("fit-content"),
-                      //   BorderWidth("2px 2px 0px 2px"),
-                      //   BorderStyle("solid"),
-                      //   BorderColor("green")
-                      //  ),
-
                       Def(CardEmptyBorderGreen,
                           BorderedBoxGreen,
                           W4C,

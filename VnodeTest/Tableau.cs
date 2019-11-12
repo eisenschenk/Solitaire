@@ -14,17 +14,15 @@ namespace Solitaire
         {
             TableauSource = new TableauStack(collection);
             TableauGraveyard = new TableauStack();
-
         }
-
         public void NextCard()
         {
             if (TableauSource.Count != 0)
             {
                 if (!TableauGraveyard.IsEmpty)
-                    TableauGraveyard.Peek().IsFlipped = false;
+                    TableauGraveyard.Peek().IsFaceUp = false;
                 TableauGraveyard.Push(TableauSource.Pop());
-                TableauGraveyard.Peek().IsFlipped = true;
+                TableauGraveyard.Peek().IsFaceUp = true;
             }
             else
             {
