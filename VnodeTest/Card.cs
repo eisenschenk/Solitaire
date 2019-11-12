@@ -16,22 +16,16 @@ namespace Solitaire
         public string CardSprite;
         public string PipSprite;
         public bool IsFlipped;
-        public bool IsSelected;
-        private int PipID;
-
         public Card(int cardDeckIndex)
         {
-            PipID = cardDeckIndex / 13;
-            if (PipID / 2 == 0)
+            CardValue = GetCardValue(cardDeckIndex % 13);
+            CardSprite = GetValueSprite();
+            PipValue = GetPipValue(cardDeckIndex / 13);
+            PipSprite = GetPipSprite();
+            if ((int)PipValue / 2 == 0)
                 Color = Styles.TCblack;
             else
                 Color = Styles.TCred;
-
-            CardValue = GetCardValue(cardDeckIndex % 13);
-            CardSprite = GetValueSprite();
-            PipValue = GetPipValue();
-            PipSprite = GetPipSprite();
-
         }
         private CardModel GetCardValue(int cardID)
         {
@@ -53,9 +47,9 @@ namespace Solitaire
                 default: return CardModel.Zero;
             }
         }
-        private PipModel GetPipValue()
+        private PipModel GetPipValue(int pipID)
         {
-            switch (PipID)
+            switch (pipID)
             {
                 case 0: return PipModel.Club;
                 case 1: return PipModel.Spade;
@@ -123,8 +117,8 @@ namespace Solitaire
             //Tableau
             if (deck.Tableau.TableauGraveyard.Contains(this))
                 return deck.Tableau.TableauGraveyard;
-            
-                return null;
+
+            return null;
         }
 
     }

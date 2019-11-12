@@ -27,10 +27,6 @@ namespace Solitaire
                 default: return "0";
             }
         }
-        public override void ClickEmptyStack(Deck cards, Card selected)
-        {
-                TryPush(selected, selected.GetStack(cards));
-        }
         public override bool CanPush(Card card)
         {
             if (card == null)

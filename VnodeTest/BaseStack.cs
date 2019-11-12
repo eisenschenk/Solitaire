@@ -41,7 +41,10 @@ namespace Solitaire
             }
             return false;
         }
-        public abstract void ClickEmptyStack(Deck cards, Card selected);
+        public void ClickEmptyStack(Deck cards, Card selected)
+        {
+            TryPush(selected, selected.GetStack(cards));
+        }
         public abstract bool CanPush(Card card);
     }
 }

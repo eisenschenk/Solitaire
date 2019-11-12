@@ -16,10 +16,6 @@ namespace Solitaire
         {
 
         }
-        public override void ClickEmptyStack(Deck cards, Card selected)
-        {
-                TryPush(selected, selected.GetStack(cards));
-        }
         public override bool CanPush(Card card)
         {
             if (card == null)
