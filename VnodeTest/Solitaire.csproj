@@ -74,6 +74,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="Styles.cs" />
+    <Compile Include="TableauStack.cs" />
     <Compile Include="WatchComponent.cs" />
   </ItemGroup>
   <ItemGroup>

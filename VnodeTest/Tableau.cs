@@ -8,22 +8,22 @@ namespace Solitaire
 {
     public class Tableau
     {
-        public CardStack TableauSource = new CardStack();
-        public CardStack TableauGraveyard = new CardStack();
+        public TableauStack TableauSource = new TableauStack();
+        public TableauStack TableauGraveyard = new TableauStack();
         public void NextCard()
         {
-            if (TableauSource.CardPile.Count != 0)
+            if (TableauSource.Count != 0)
             {
                 if (!TableauGraveyard.IsEmpty)
-                    TableauGraveyard.CardPile.Peek().IsFlipped = false;
-                TableauGraveyard.CardPile.Push(TableauSource.CardPile.Pop());
-                TableauGraveyard.CardPile.Peek().IsFlipped = true;
+                    TableauGraveyard.Peek().IsFlipped = false;
+                TableauGraveyard.Push(TableauSource.Pop());
+                TableauGraveyard.Peek().IsFlipped = true;
                 TableauGraveyard.IsEmpty = false;
             }
             else
             {
-                while (TableauGraveyard.CardPile.Count != 0)
-                    TableauSource.CardPile.Push(TableauGraveyard.CardPile.Pop());
+                while (TableauGraveyard.Count != 0)
+                    TableauSource.Push(TableauGraveyard.Pop());
                 TableauGraveyard.IsEmpty = true;
                 TableauSource.IsEmpty = false;
             }

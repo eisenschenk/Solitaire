@@ -105,23 +105,23 @@ namespace Solitaire
 
 
 
-        public CardStack TryGetStack(Deck deck)
+        public BaseStack GetStack(Deck deck)
         {
             //GamePiles
             foreach (CardStack stack in deck.GamePiles)
-                if (stack.CardPile.Contains(this))
+                if (stack.Contains(this))
                     return stack;
             //Foundations
-            if (deck.Foundations.Club.CardPile.Contains(this))
+            if (deck.Foundations.Club.Contains(this))
                 return deck.Foundations.Club;
-            else if (deck.Foundations.Spade.CardPile.Contains(this))
+            else if (deck.Foundations.Spade.Contains(this))
                 return deck.Foundations.Spade;
-            else if (deck.Foundations.Heart.CardPile.Contains(this))
+            else if (deck.Foundations.Heart.Contains(this))
                 return deck.Foundations.Heart;
-            else if (deck.Foundations.Diamond.CardPile.Contains(this))
+            else if (deck.Foundations.Diamond.Contains(this))
                 return deck.Foundations.Diamond;
             //Tableau
-            if (deck.Tableau.TableauGraveyard.CardPile.Contains(this))
+            if (deck.Tableau.TableauGraveyard.Contains(this))
                 return deck.Tableau.TableauGraveyard;
             
                 return null;

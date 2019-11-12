@@ -8,7 +8,15 @@ using static ACL.UI.React.DOM;
 
 namespace Solitaire
 {
-    //TODO CLASSES
+    //TODO freeze when 2 cards of the same stack are touched after each other
+    //TODO Cards dont move to empty cardstack
+    //TODO sometimes puts cards in tablea?stack vanishes somewhere
+    //TODO putting cards to/from Foudnationstack working?
+    //TODO make Style for selected Card/CardStack
+    //TODO if clicked somewhere without a Div deselect prior selection maybe
+    //TODO implement shuffle
+
+
     public class GameBoard
     {
         public int CurrentCardIndex = 0;
@@ -27,7 +35,7 @@ namespace Solitaire
                         Row(
                             Styles.FitContent & Styles.W33,
                             Div(() => Cards.Tableau.NextCard(), RenderCardback(Styles.CardGreen)),
-                            Cards.Tableau.TableauGraveyard.IsEmpty ? RenderEmptyCard() : RenderCard(Cards.Tableau.TableauGraveyard.CardPile.Peek())
+                            Cards.Tableau.TableauGraveyard.IsEmpty ? RenderEmptyCard() : RenderCard(Cards.Tableau.TableauGraveyard.Peek())
                         ),
                         RenderFoundationPiles()
                     ),
@@ -41,23 +49,27 @@ namespace Solitaire
         {
             return Row
                 (
-                Cards.Foundations.Club.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Club.CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Club"),
-                Cards.Foundations.Spade.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Spade.CardPile.Peek()) : RenderCardback(Styles.CardBlack, "Spade"),
-                Cards.Foundations.Heart.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Heart.CardPile.Peek()) : RenderCardback(Styles.CardRed, "Heart"),
-                Cards.Foundations.Diamond.CardPile.Count != 0 ? RenderCard(Cards.Foundations.Diamond.CardPile.Peek()) : RenderCardback(Styles.CardRed, "Diamond")
+                Cards.Foundations.Club.Count != 0 ? RenderCard(Cards.Foundations.Club.Peek()) : RenderEmptyFoundation(Cards.Foundations.Club, Styles.CardBlack, "Club"),
+                Cards.Foundations.Spade.Count != 0 ? RenderCard(Cards.Foundations.Spade.Peek()) : RenderEmptyFoundation(Cards.Foundations.Spade, Styles.CardBlack, "Spade"),
+                Cards.Foundations.Heart.Count != 0 ? RenderCard(Cards.Foundations.Heart.Peek()) : RenderEmptyFoundation(Cards.Foundations.Heart, Styles.CardRed, "Heart"),
+                Cards.Foundations.Diamond.Count != 0 ? RenderCard(Cards.Foundations.Diamond.Peek()) : RenderEmptyFoundation(Cards.Foundations.Diamond, Styles.CardRed, "Diamond")
                 );
         }
         private VNode RenderGamePiles()
         {
             VNode RenderGamePile(CardStack stack)
             {
-                if (stack.CardPile.Count != 0)
+                if (stack.Count != 0)
                     return Col(
-                         Fragment(stack.CardPile.Reverse().Take(stack.CardPile.Count - 1).Select(c => RenderOverlappedCard(c))),
-                         RenderCard(stack.CardPile.Peek())
+                         Fragment(stack.Reverse().Take(stack.Count - 1).Select(c => RenderOverlappedCard(c))),
+                         RenderCard(stack.Peek())
                      );
                 else
-                    return RenderEmptyCard();
+                {
+                    var div = RenderEmptyCard();
+                    div.OnClick = () => stack.ClickEmptyStack(Cards, Selected);
+                    return div;
+                }
             }
             return Row(Cards.GamePiles.Select(p => RenderGamePile(p)));
         }
@@ -77,12 +89,12 @@ namespace Solitaire
                     Text($"{card.CardSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
                 )
             );
-            div.OnClick = () => Click(card);
+            div.OnClick = () => ClickCard(card);
 
             return div;
         }
 
-        public void Click(Card card)
+        public void ClickCard(Card card)
         {
             if (Selected == null && card.IsFlipped)
                 Selected = card;
@@ -90,9 +102,13 @@ namespace Solitaire
                 Selected = null;
             else
             {
-                Selected.TryGetStack(Cards).TryMove(card.TryGetStack(Cards), Selected);
+                Selected.GetStack(Cards).TryPush(card.GetStack(Cards), Selected);
                 Selected = null;
             }
+        }
+        public void ClickEmptyStack(Deck cards, Card selected)
+        {
+          
         }
         private VNode RenderOverlappedCard(Card card)
         {
@@ -107,8 +123,14 @@ namespace Solitaire
                 Text($"{card.CardSprite}", card.Color & Styles.W2C),
                 Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
             );
-            row.OnClick = () => Click(card);
+            row.OnClick = () => ClickCard(card);
             return row;
+        }
+        private VNode RenderEmptyFoundation(FoundationStack target, Style color, string title = "Deck")
+        {
+            var div = RenderCardback(color, title);
+            div.OnClick = () => target.ClickEmptyStack(Cards, Selected);
+            return div;
         }
         public static VNode RenderCardback(Style color, string title = "Deck")
         {

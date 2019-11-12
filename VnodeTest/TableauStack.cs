@@ -6,20 +6,11 @@ using System.Threading.Tasks;
 
 namespace Solitaire
 {
-    public class CardStack : BaseStack
+    public class TableauStack : BaseStack
     {
-
-        public CardStack(IEnumerable<Card> collection)
-            : base(collection) { }
-
-        public CardStack()
-        {
-
-        }
         public override void ClickEmptyStack(Deck cards, Card selected)
         {
-            if (selected != null && selected.CardValue == Card.CardModel.King)
-                selected.GetStack(cards).TryPush(this, selected);
+
         }
         public override bool CanPush(BaseStack target, Card card)
         {
@@ -40,6 +31,8 @@ namespace Solitaire
             }
             return false;
         }
+
+
 
 
     }
