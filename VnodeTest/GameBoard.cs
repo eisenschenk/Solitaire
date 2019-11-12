@@ -13,6 +13,7 @@ namespace Solitaire
         public int CurrentCardIndex = 0;
         public Deck Cards = new Deck(52);
         public Card Selected;
+        public int Score => GetScore();
         public GameBoard()
         {
             Cards.DealCards();
@@ -26,7 +27,8 @@ namespace Solitaire
                             Div(() => Cards.Tableau.NextCard(), RenderCardback(Styles.CardGreen)),
                             Cards.Tableau.TableauGraveyard.IsEmpty ? RenderEmptyCard() : RenderCard(Cards.Tableau.TableauGraveyard.Peek())
                         ),
-                        RenderFoundationPiles()
+                        RenderFoundationPiles(),
+                        RenderScore()
                     ),
                     RenderGamePiles()
             );
@@ -39,6 +41,22 @@ namespace Solitaire
                 Cards.Foundations.Spade.Count != 0 ? RenderCard(Cards.Foundations.Spade.Peek()) : RenderEmptyFoundation(Cards.Foundations.Spade, Styles.CardBlack, "Spade"),
                 Cards.Foundations.Heart.Count != 0 ? RenderCard(Cards.Foundations.Heart.Peek()) : RenderEmptyFoundation(Cards.Foundations.Heart, Styles.CardRed, "Heart"),
                 Cards.Foundations.Diamond.Count != 0 ? RenderCard(Cards.Foundations.Diamond.Peek()) : RenderEmptyFoundation(Cards.Foundations.Diamond, Styles.CardRed, "Diamond")
+                );
+        }
+        private int GetScore()
+        {
+            //score for all cards put to Foudnations
+            var score = (Cards.Foundations.Club.Count + Cards.Foundations.Spade.Count + Cards.Foundations.Heart.Count + Cards.Foundations.Diamond.Count);
+            //factor per card
+            score *= 10;
+            // point reduction per full cycle of cards shown from Tableau
+            score -= Cards.Tableau.TurnCounter * 20;
+            return score;
+        }
+        public VNode RenderScore()
+        {
+            return Div(
+                Text($"{Score}", Styles.BorderedBoxPurple & Styles.W4C & Styles.TextAlignR)
                 );
         }
         private VNode RenderGamePiles()

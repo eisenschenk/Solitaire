@@ -154,6 +154,12 @@ namespace Solitaire
                         Border("2px dashed purple")
                         ),
 
+                     Def(Score,
+                        BorderedBox,
+                        Margin("0rem 2rem 2rem 2rem"),
+                        Border("2px dashed purple")
+                        ),
+
                      Def(BorderedBoxGreen,
                          BorderedBox,
                          Border("2px solid green")
@@ -323,6 +329,7 @@ namespace Solitaire
         public static readonly Style BorderedBoxGreen;
         public static readonly Style BorderedBoxRed;
         public static readonly Style BorderedBoxPurple;
+        public static readonly Style Score;
         public static readonly Style CardBackPartial;
         public static readonly Style CardEmptyBorderGreen;
 
