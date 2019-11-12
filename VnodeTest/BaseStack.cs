@@ -8,12 +8,14 @@ namespace Solitaire
 {
     public abstract class BaseStack : Stack<Card>
     {
-        public bool IsEmpty = true;
+        public bool IsEmpty => !this.Any();
         public BaseStack()
         {
         }
         public BaseStack(IEnumerable<Card> collection)
+            : base(collection)
         {
+
         }
         public CardStack GetTempStack(Card card)
         {
@@ -23,9 +25,7 @@ namespace Solitaire
                     tempStack.Push(Pop());
 
             while (tempStack.Peek() != card);
-            if (Count == 0)
-                IsEmpty = true;
-            else
+            if (!IsEmpty)
                 Peek().IsFlipped = true;
 
             return tempStack;

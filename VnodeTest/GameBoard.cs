@@ -8,14 +8,8 @@ using static ACL.UI.React.DOM;
 
 namespace Solitaire
 {
-    //TODO freeze when 2 cards of the same stack are touched after each other
-    //TODO Cards dont move to empty cardstack
-    //TODO sometimes puts cards in tablea?stack vanishes somewhere
-    //TODO putting cards to/from Foudnationstack working?
-    //TODO make Style for selected Card/CardStack
     //TODO if clicked somewhere without a Div deselect prior selection maybe
     //TODO implement shuffle
-
 
     public class GameBoard
     {
@@ -24,7 +18,6 @@ namespace Solitaire
         public Card Selected;
         public GameBoard()
         {
-            Cards.Tableau.ShuffleDeck();
             Cards.DealCards();
         }
 
@@ -67,7 +60,7 @@ namespace Solitaire
                 else
                 {
                     var div = RenderEmptyCard();
-                    div.OnClick = () => stack.ClickEmptyStack(Cards, Selected);
+                    div.OnClick = () => { stack.ClickEmptyStack(Cards, Selected); Selected = null; };
                     return div;
                 }
             }
@@ -75,8 +68,13 @@ namespace Solitaire
         }
         private VNode RenderCard(Card card)
         {
+            Style boxStyle;
+            if (card == Selected)
+                boxStyle = Styles.BorderedBoxPurple;
+            else
+                boxStyle = Styles.BorderedBoxBlack;
             var div = Div(
-                Styles.BorderedBoxBlack & card.Color & Styles.W4C & Styles.M2,
+                card.Color & Styles.W4C & Styles.M2 & boxStyle,
                 Row(
                     Styles.W4C,
                     Text($"{card.CardSprite}", card.Color & Styles.W2C),
@@ -108,10 +106,16 @@ namespace Solitaire
         }
         public void ClickEmptyStack(Deck cards, Card selected)
         {
-          
+
         }
         private VNode RenderOverlappedCard(Card card)
         {
+            Style cardStyle;
+            if (card == Selected)
+                cardStyle = Styles.BorderedBoxPartialSelected;
+            else
+                cardStyle = Styles.BorderedBoxPartial;
+
             if (!card.IsFlipped)
                 return Div(
                     Styles.CardBackPartial & Styles.W4C & Styles.M2,
@@ -119,7 +123,7 @@ namespace Solitaire
                 );
 
             var row = Row(
-                Styles.W4C & Styles.BorderedBoxPartial & Styles.M2,
+                Styles.W4C & cardStyle & Styles.M2,
                 Text($"{card.CardSprite}", card.Color & Styles.W2C),
                 Text($"{card.PipSprite}", card.Color & Styles.TextAlignR & Styles.W2C)
             );
@@ -129,7 +133,7 @@ namespace Solitaire
         private VNode RenderEmptyFoundation(FoundationStack target, Style color, string title = "Deck")
         {
             var div = RenderCardback(color, title);
-            div.OnClick = () => target.ClickEmptyStack(Cards, Selected);
+            div.OnClick = () => { target.ClickEmptyStack(Cards, Selected); Selected = null; };
             return div;
         }
         public static VNode RenderCardback(Style color, string title = "Deck")

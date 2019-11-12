@@ -126,18 +126,32 @@ namespace Solitaire
                         Width("fit-content")
                         ),
 
-                     Def(BorderedBoxPartial,
+                    Def(BorderedBoxPartialBase,
                         Padding("2px"),
                         BorderRadius(".25rem .25rem 0rem 0rem"),
                         Width("fit-content"),
                         BorderWidth("2px 2px 0px 2px"),
-                        BorderStyle("solid"),
                         BorderColor("black")
+                        ),
+
+                     Def(BorderedBoxPartial,
+                        BorderedBoxPartialBase,
+                        BorderStyle("solid")
+                        ),
+
+                     Def(BorderedBoxPartialSelected,
+                        BorderedBoxPartialBase,
+                        BorderStyle("dashed")
                         ),
 
                     Def(BorderedBoxBlack,
                         BorderedBox,
                         Border("2px solid black")
+                        ),
+
+                     Def(BorderedBoxPurple,
+                        BorderedBox,
+                        Border("2px dashed purple")
                         ),
 
                      Def(BorderedBoxGreen,
@@ -147,7 +161,15 @@ namespace Solitaire
 
                      Def(BorderedBoxRed,
                          BorderedBox,
-                         Border("2px solid green")
+                         Border("2px solid red")
+                        ),
+
+                        Def(BorderW2,
+                         BorderWidth("2px")
+                        ),
+
+                        Def(BorderW4,
+                         BorderWidth("4px")
                         ),
 
                       Def(CardBackPartial,
@@ -158,6 +180,15 @@ namespace Solitaire
                          BorderStyle("solid"),
                          BorderColor("green")
                         ),
+
+                      //Def(CardBackPartial,
+                      //   Padding("2px"),
+                      //   BorderRadius(".25rem .25rem 0rem 0rem"),
+                      //   Width("fit-content"),
+                      //   BorderWidth("2px 2px 0px 2px"),
+                      //   BorderStyle("solid"),
+                      //   BorderColor("green")
+                      //  ),
 
                       Def(CardEmptyBorderGreen,
                           BorderedBoxGreen,
@@ -177,7 +208,7 @@ namespace Solitaire
                          ),
 
                       Def(CardGreen,
-                         BorderedBoxRed,
+                         BorderedBoxGreen,
                          TCgreen
                          ),
 
@@ -291,11 +322,16 @@ namespace Solitaire
 
         public static readonly Style Selected;
 
+        public static readonly Style BorderW2;
+        public static readonly Style BorderW4;
         public static readonly Style BorderedBox;
+        public static readonly Style BorderedBoxPartialBase;
         public static readonly Style BorderedBoxPartial;
+        public static readonly Style BorderedBoxPartialSelected;
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
         public static readonly Style BorderedBoxRed;
+        public static readonly Style BorderedBoxPurple;
         public static readonly Style CardBackPartial;
         public static readonly Style CardEmptyBorderGreen;
 
@@ -311,7 +347,7 @@ namespace Solitaire
         public static readonly Style TextAlignC;
 
         public static readonly Style R10;
-      
+
 
 
     }

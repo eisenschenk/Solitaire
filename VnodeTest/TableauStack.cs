@@ -8,6 +8,15 @@ namespace Solitaire
 {
     public class TableauStack : BaseStack
     {
+        public TableauStack(IEnumerable<Card> collection)
+            : base(collection)
+        {
+
+        }
+        public TableauStack()
+        {
+
+        }
         public override void ClickEmptyStack(Deck cards, Card selected)
         {
 

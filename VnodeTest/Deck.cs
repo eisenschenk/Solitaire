@@ -9,14 +9,19 @@ namespace Solitaire
 {
     public class Deck
     {
-        public Tableau Tableau = new Tableau();
+        public Tableau Tableau;
         public Foundations Foundations = new Foundations();
         public CardStack[] GamePiles = new CardStack[7];
+        private Random random = new Random();
 
         public Deck(int count)
         {
-            for (int index = 0; index < count; index++)
-                Tableau.TableauSource.Push(new Card(index));
+            var cards = Enumerable.Range(0, 52)
+                .Select(x => (Weight: random.Next(), Card: new Card(x)))
+                .OrderBy(x => x.Weight)
+                .Select(c => c.Card);
+            Tableau = new Tableau(cards);
+
             for (int index = 0; index < GamePiles.Count(); index++)
                 GamePiles[index] = new CardStack();
 
@@ -34,7 +39,6 @@ namespace Solitaire
                     else
                         Tableau.TableauSource.Peek().IsFlipped = false;
                     GamePiles[pileNumber].Push(Tableau.TableauSource.Pop());
-                    GamePiles[pileNumber].IsEmpty = false;
                 }
         }
 
