@@ -8,9 +8,6 @@ using static ACL.UI.React.DOM;
 
 namespace Solitaire
 {
-    //TODO if clicked somewhere without a Div deselect prior selection maybe
-    //TODO implement shuffle
-
     public class GameBoard
     {
         public int CurrentCardIndex = 0;
@@ -66,6 +63,7 @@ namespace Solitaire
             }
             return Row(Cards.GamePiles.Select(p => RenderGamePile(p)));
         }
+        //render karten zugedeckt
         private VNode RenderCard(Card card)
         {
             Style boxStyle;
@@ -100,7 +98,7 @@ namespace Solitaire
                 Selected = null;
             else
             {
-                Selected.GetStack(Cards).TryPush(card.GetStack(Cards), Selected);
+                card.GetStack(Cards).TryPush(Selected, Selected.GetStack(Cards));
                 Selected = null;
             }
         }

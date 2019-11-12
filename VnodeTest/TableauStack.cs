@@ -21,23 +21,8 @@ namespace Solitaire
         {
 
         }
-        public override bool CanPush(BaseStack target, Card card)
+        public override bool CanPush(Card card)
         {
-            if (target is CardStack)
-            {
-                if (target.IsEmpty && card.CardValue == Card.CardModel.King)
-                    return true;
-                if (!target.IsEmpty && target.Peek().Color != card.Color && target.Peek().CardValue == card.CardValue + 1)
-                    return true;
-            }
-            if (target is FoundationStack)
-            {
-                var fTarget = (FoundationStack)target;
-                if (fTarget.PipSprite != card.PipSprite)
-                    return false;
-                if ((target.IsEmpty && card.CardValue == Card.CardModel.Ace) || (fTarget.Peek().CardValue == card.CardValue - 1))
-                    return true;
-            }
             return false;
         }
 

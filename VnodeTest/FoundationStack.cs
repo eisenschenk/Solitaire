@@ -29,18 +29,16 @@ namespace Solitaire
         }
         public override void ClickEmptyStack(Deck cards, Card selected)
         {
-            if (selected != null && selected.CardValue == Card.CardModel.Ace)
-                selected.GetStack(cards).TryPush(this, selected);
+                TryPush(selected, selected.GetStack(cards));
         }
-        public override bool CanPush(BaseStack target, Card card)
+        public override bool CanPush(Card card)
         {
-            if (target is CardStack)
-            {
-                if (target.IsEmpty && card.CardValue == Card.CardModel.King)
-                    return true;
-                if (!target.IsEmpty && target.Peek().Color != card.Color && target.Peek().CardValue == card.CardValue + 1)
-                    return true;
-            }
+            if (card == null)
+                return false;
+            if (PipSprite != card.PipSprite)
+                return false;
+            if ((IsEmpty && card.CardValue == Card.CardModel.Ace) || (Peek().CardValue == card.CardValue - 1))
+                return true;
             return false;
         }
 

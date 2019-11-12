@@ -30,18 +30,18 @@ namespace Solitaire
 
             return tempStack;
         }
-        public bool TryPush(BaseStack target, Card card)
+        public bool TryPush(Card sourceCard, BaseStack sourceStack)
         {
-            if (CanPush(target, card))
+            if (CanPush(sourceCard))
             {
-                var tempStack = GetTempStack(card);
+                var tempStack = sourceStack.GetTempStack(sourceCard);
                 while (tempStack.Count != 0)
-                    target.Push(tempStack.Pop());
+                    Push(tempStack.Pop());
                 return true;
             }
             return false;
         }
         public abstract void ClickEmptyStack(Deck cards, Card selected);
-        public abstract bool CanPush(BaseStack target, Card card);
+        public abstract bool CanPush(Card card);
     }
 }
