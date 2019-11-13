@@ -10,12 +10,12 @@ namespace Solitaire
 {
     public class Card
     {
-        public Style Color;
-        public CardModel CardValue;
-        public PipModel PipValue;
-        public string CardSprite;
-        public string PipSprite;
-        public bool IsFaceUp;
+        public Style Color { get; }
+        public CardModel CardValue { get; }
+        public PipModel PipValue { get; }
+        public string CardSprite { get; }
+        public string PipSprite { get; }
+        public bool IsFaceUp { get; set; }
         public Card(int cardDeckIndex)
         {
             CardValue = GetCardValue(cardDeckIndex % 13);
@@ -29,76 +29,73 @@ namespace Solitaire
         }
         private CardModel GetCardValue(int cardID)
         {
-            switch (cardID)
+            return cardID switch
             {
-                case 0: return CardModel.Ace;
-                case 1: return CardModel.Two;
-                case 2: return CardModel.Three;
-                case 3: return CardModel.Four;
-                case 4: return CardModel.Five;
-                case 5: return CardModel.Six;
-                case 6: return CardModel.Seven;
-                case 7: return CardModel.Eight;
-                case 8: return CardModel.Nine;
-                case 9: return CardModel.Ten;
-                case 10: return CardModel.Jack;
-                case 11: return CardModel.Queen;
-                case 12: return CardModel.King;
-                default: return CardModel.Zero;
-            }
+                0 => CardModel.Ace,
+                1 => CardModel.Two,
+                2 => CardModel.Three,
+                3 => CardModel.Four,
+                4 => CardModel.Five,
+                5 => CardModel.Six,
+                6 => CardModel.Seven,
+                7 => CardModel.Eight,
+                8 => CardModel.Nine,
+                9 => CardModel.Ten,
+                10 => CardModel.Jack,
+                11 => CardModel.Queen,
+                12 => CardModel.King,
+                _ => CardModel.Zero,
+            };
         }
         private PipModel GetPipValue(int pipID)
         {
-            switch (pipID)
+            return pipID switch
             {
-                case 0: return PipModel.Club;
-                case 1: return PipModel.Spade;
-                case 2: return PipModel.Heart;
-                case 3: return PipModel.Diamond;
-                default: return PipModel.Zero;
-            }
-        }
-        public enum PipModel { Club, Spade, Heart, Diamond, Zero }
-        public enum CardModel
-        {
-            Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Zero
-        }
+                0 => PipModel.Club,
+                1 => PipModel.Spade,
+                2 => PipModel.Heart,
+                3 => PipModel.Diamond,
+                _ => PipModel.Zero,
+            };
+        }                
 
         private string GetValueSprite()
         {
-            switch (CardValue)
+
+            return CardValue switch
             {
-                case CardModel.Ace: return "A";
-                case CardModel.Two: return "2";
-                case CardModel.Three: return "3";
-                case CardModel.Four: return "4";
-                case CardModel.Five: return "5";
-                case CardModel.Six: return "6";
-                case CardModel.Seven: return "7";
-                case CardModel.Eight: return "8";
-                case CardModel.Nine: return "9";
-                case CardModel.Ten: return "10";
-                case CardModel.Jack: return "J";
-                case CardModel.Queen: return "Q";
-                case CardModel.King: return "K";
-                default: return "0";
-            }
+                CardModel.Ace => "A",
+                CardModel.Two => "2",
+                CardModel.Three => "3",
+                CardModel.Four => "4",
+                CardModel.Five => "5",
+                CardModel.Six => "6",
+                CardModel.Seven => "7",
+                CardModel.Eight => "8",
+                CardModel.Nine => "9",
+                CardModel.Ten => "10",
+                CardModel.Jack => "J",
+                CardModel.Queen => "Q",
+                CardModel.King => "K",
+                _ => "0",
+            };
         }
 
         private string GetPipSprite()
         {
-            switch (PipValue)
+            return PipValue switch
             {
-                case PipModel.Club: return "♣";
-                case PipModel.Spade: return "♠";
-                case PipModel.Heart: return "♥";
-                case PipModel.Diamond: return "♦";
-                default: return "0";
-            }
+                PipModel.Club => "♣",
+                PipModel.Spade => "♠",
+                PipModel.Heart => "♥",
+                PipModel.Diamond => "♦",
+                _ => "0",
+            };
         }
 
 
 
+        //TODO => deck
         public BaseStack GetStack(Deck deck)
         {
             //GamePiles

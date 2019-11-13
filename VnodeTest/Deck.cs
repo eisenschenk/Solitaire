@@ -9,15 +9,15 @@ namespace Solitaire
 {
     public class Deck
     {
-        public Tableau Tableau;
-        public Foundations Foundations = new Foundations();
-        public CardStack[] GamePiles = new CardStack[7];
-        private Random random = new Random();
+        public Tableau Tableau { get; }
+        public Foundations Foundations { get; } = new Foundations();
+        public CardStack[] GamePiles { get; } = new CardStack[7];
+        private readonly Random Random = new Random();
 
-        public Deck(int count)
+        public Deck()
         {
             var cards = Enumerable.Range(0, 52)
-                .Select(x => (Weight: random.Next(), Card: new Card(x)))
+                .Select(x => (Weight: Random.Next(), Card: new Card(x)))
                 .OrderBy(x => x.Weight)
                 .Select(c => c.Card);
             Tableau = new Tableau(cards);
@@ -26,21 +26,14 @@ namespace Solitaire
                 GamePiles[index] = new CardStack();
         }
 
-        public enum GamePileID { One, Two, Three, Four, Five, Six, Seven }
-
         public void DealCards()
         {
             for (int pileNumber = 0; pileNumber < 7; pileNumber++)
                 for (int index = 0; index < pileNumber + 1; index++)
                 {
-                    if (index == pileNumber)
-                        Tableau.TableauSource.Peek().IsFaceUp = true;
-                    else
-                        Tableau.TableauSource.Peek().IsFaceUp = false;
+                    Tableau.TableauSource.Peek().IsFaceUp = index == pileNumber;
                     GamePiles[pileNumber].Push(Tableau.TableauSource.Pop());
                 }
         }
-
-
     }
 }

@@ -8,18 +8,16 @@ namespace Solitaire
 {
     public class CardStack : BaseStack
     {
-
         public CardStack(IEnumerable<Card> collection)
             : base(collection) { }
 
-        public CardStack()
-        {
-        }
+        public CardStack() { }
+
         public override bool CanPush(Card card)
         {
             if (card == null)
                 return false;
-            if (IsEmpty && card.CardValue == Card.CardModel.King)
+            if (IsEmpty && card.CardValue == CardModel.King)
                 return true;
             if (!IsEmpty && Peek().Color != card.Color && Peek().CardValue == card.CardValue + 1)
                 return true;

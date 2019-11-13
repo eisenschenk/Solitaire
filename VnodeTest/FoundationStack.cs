@@ -8,32 +8,32 @@ namespace Solitaire
 {
     public class FoundationStack : BaseStack
     {
-        public string PipSprite;
+        public string PipSprite { get; }
 
-        public FoundationStack(Foundations.PipModel pipModel)
+        public FoundationStack(PipModel pipModel)
         {
             PipSprite = GetPipSprite(pipModel);
         }
 
-
-        private string GetPipSprite(Foundations.PipModel pipModel)
+        private string GetPipSprite(PipModel pipModel)
         {
-            switch (pipModel)
+            return pipModel switch
             {
-                case Foundations.PipModel.Club: return "♣";
-                case Foundations.PipModel.Spade: return "♠";
-                case Foundations.PipModel.Heart: return "♥";
-                case Foundations.PipModel.Diamond: return "♦";
-                default: return "0";
-            }
+                PipModel.Club => "♣",
+                PipModel.Spade => "♠",
+                PipModel.Heart => "♥",
+                PipModel.Diamond => "♦",
+                _ => "0",
+            };
         }
+
         public override bool CanPush(Card card)
         {
             if (card == null)
                 return false;
             if (PipSprite != card.PipSprite)
                 return false;
-            if ((IsEmpty && card.CardValue == Card.CardModel.Ace) || !IsEmpty && (Peek().CardValue == card.CardValue - 1))
+            if ((IsEmpty && card.CardValue == CardModel.Ace) || !IsEmpty && (Peek().CardValue == card.CardValue - 1))
                 return true;
             return false;
         }

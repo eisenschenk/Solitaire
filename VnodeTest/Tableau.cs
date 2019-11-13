@@ -8,9 +8,9 @@ namespace Solitaire
 {
     public class Tableau
     {
-        public TableauStack TableauSource;
-        public TableauStack TableauGraveyard;
-        public int TurnCounter;
+        public TableauStack TableauSource { get; }
+        public TableauStack TableauGraveyard { get; }
+        public int GraveyardTurnedOverCounter { get; set; }
         public Tableau(IEnumerable<Card> collection)
         {
             TableauSource = new TableauStack(collection);
@@ -29,11 +29,8 @@ namespace Solitaire
             {
                 while (TableauGraveyard.Count != 0)
                     TableauSource.Push(TableauGraveyard.Pop());
-                TurnCounter++;
+                GraveyardTurnedOverCounter++;
             }
         }
-
-
-
     }
 }

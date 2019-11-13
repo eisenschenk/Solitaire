@@ -16,287 +16,288 @@ namespace Solitaire
 
         public Rule[] SomeRules => RuleSet(
 
-                    Def(BCblack,
-                        BackgroundColor("black")
-                        ),
+            Def(BCblack,
+                BackgroundColor("black")
+            ),
 
-                    Def(BCred,
-                        BackgroundColor("red")
-                        ),
+            Def(BCred,
+                BackgroundColor("red")
+            ),
 
-                    Def(TCblack,
-                        Color("black")
-                        ),
+            Def(TCblack,
+                Color("black")
+            ),
 
-                    Def(TCred,
-                        Color("red")
-                        ),
+            Def(TCred,
+                Color("red")
+            ),
 
-                    Def(TCwhite,
-                        Color("white")
-                        ),
+            Def(TCwhite,
+                Color("white")
+            ),
 
-                    Def(TCgreen,
-                        Color("green")
-                        ),
+            Def(TCgreen,
+                Color("green")
+            ),
 
-                    Def(Dropdown,
-                    Display("block"),
-                    Position("absolute"),
-                    BackgroundColor("grey"),
-                    Width("fit-content"),
-                    Height("auto"),
-                    Padding("12px 16px"),
-                    ZIndex("1")
-                        ),
+            Def(Dropdown
+                , Display("block")
+                , Position("absolute")
+                , BackgroundColor("grey")
+                , Width("fit-content")
+                , Height("auto")
+                , Padding("12px 16px")
+                , ZIndex("1")
+            ),
 
-                    Def(M2,
-                        Margin("2px")
-                        ),
+            Def(M2,
+                Margin("2px")
+            ),
 
-                    Def(Ml6,
-                        Margin("0rem 0rem 0rem 6rem")
-                        ),
+            Def(Ml6,
+                Margin("0rem 0rem 0rem 6rem")
+            ),
 
-                    Def(MX2,
-                        MarginLeft("2px"),
-                        MarginRight("2px")
-                        ),
+            Def(MX2,
+                MarginLeft("2px"),
+                MarginRight("2px")
+            ),
 
-                    Def(MY2,
-                        MarginTop("2px"),
-                        MarginBottom("2px")
-                        ),
+            Def(MY2,
+                MarginTop("2px"),
+                MarginBottom("2px")
+            ),
 
-                    Def(MR2,
-                        MarginRight("2px")
-                        ),
+            Def(MR2,
+                MarginRight("2px")
+            ),
 
-                    Def(ML2,
-                        MarginLeft("2px")
-                        ),
+            Def(ML2,
+                MarginLeft("2px")
+            ),
 
-                    Def(MT2,
-                        MarginTop("2px")
-                        ),
+            Def(MT2,
+                MarginTop("2px")
+            ),
 
-                    Def(MB2,
-                        MarginBottom("2px")
-                        ),
+            Def(MB2,
+                MarginBottom("2px")
+            ),
 
-                    Def(R10,
-                        Right("10px")
-                        ),
+            Def(R10,
+                Right("10px")
+            ),
 
-                    Def(Absolute,
-                        Position("absolute")
-                        ),
+            Def(Absolute,
+                Position("absolute")
+            ),
 
-                     Def(Relative,
-                        Position("relative")
-                        ),
+            Def(Relative,
+                Position("relative")
+            ),
 
-                    Def(Btn,
-                        BaseBtn,
-                        BackgroundColor("green"),
-                        GetHoverRule("darkgreen")
-                        ),
+            Def(Btn,
+                BaseBtn,
+                BackgroundColor("green"),
+                GetHoverRule("darkgreen")
+            ),
 
-                    Def(BaseBtn,
-                        BorderRadius("5px"),
-                        Margin("4px 4px 4px 0px"),
-                        Width("fit-content"),
-                        Padding("4px")
-                        ),
+            Def(BaseBtn,
+                BorderRadius("5px"),
+                Margin("4px 4px 4px 0px"),
+                Width("fit-content"),
+                Padding("4px")
+            ),
 
-                    Def(AbortBtn,
-                        BaseBtn,
-                        BackgroundColor("red"),
-                        GetHoverRule("orange")
-                        ),
+            Def(AbortBtn,
+                BaseBtn,
+                BackgroundColor("red"),
+                GetHoverRule("orange")
+            ),
 
-                    Def(SelectedBtn,
-                        BaseBtn,
-                        BackgroundColor("seagreen")
-                        ),
+            Def(SelectedBtn,
+                BaseBtn,
+                BackgroundColor("seagreen")
+            ),
 
-                    Def(Selected,
-                        BackgroundColor("green")
-                    ),
+            Def(Selected,
+                BackgroundColor("green")
+            ),
 
-                    Def(BorderedBox,
-                        Padding("2px"),
-                        BorderRadius(".25rem"),
-                        Width("fit-content")
-                        ),
+            Def(BorderedBox,
+                Padding("2px"),
+                BorderRadius(".25rem"),
+                Width("fit-content")
+            ),
 
-                    Def(BorderedBoxPartialBase,
-                        Padding("2px"),
-                        BorderRadius(".25rem .25rem 0rem 0rem"),
-                        Width("fit-content"),
-                        BorderWidth("2px 2px 0px 2px"),
-                        BorderColor("black")
-                        ),
+            Def(BorderedBoxPartialBase,
+                Padding("2px"),
+                BorderRadius(".25rem .25rem 0rem 0rem"),
+                Width("fit-content"),
+                BorderWidth("2px 2px 0px 2px"),
+                BorderColor("black")
+            ),
 
-                     Def(BorderedBoxPartial,
-                        BorderedBoxPartialBase,
-                        BorderStyle("solid")
-                        ),
+            Def(BorderedBoxPartial,
+                BorderedBoxPartialBase,
+                BorderStyle("solid")
+            ),
 
-                     Def(BorderedBoxPartialSelected,
-                        BorderedBoxPartialBase,
-                        BorderStyle("dashed")
-                        ),
+            Def(BorderedBoxPartialSelected,
+                BorderedBoxPartialBase,
+                BorderStyle("dashed")
+            ),
 
-                    Def(BorderedBoxBlack,
-                        BorderedBox,
-                        Border("2px solid black")
-                        ),
+            Def(BorderedBoxBlack,
+                BorderedBox,
+                Border("2px solid black")
+            ),
 
-                     Def(BorderedBoxPurple,
-                        BorderedBox,
-                        Border("2px dashed purple")
-                        ),
+            Def(BorderedBoxPurple,
+                BorderedBox,
+                Border("2px dashed purple")
+            ),
 
-                     Def(Score,
-                        BorderedBox,
-                        Margin("0rem 2rem 2rem 2rem"),
-                        Border("2px dashed purple")
-                        ),
+            Def(Score,
+                BorderedBox,
+                Margin("0rem 2rem 2rem 2rem"),
+                Border("2px dashed purple")
+            ),
 
-                     Def(BorderedBoxGreen,
-                         BorderedBox,
-                         Border("2px solid green")
-                        ),
+            Def(
+                BorderedBoxGreen,
+                    BorderedBox,
+                    Border("2px solid green")
+            ),
 
-                     Def(WinBox,
-                         BorderedBox,
-                         BorderStyle("double"),
-                         BorderWidth("4px"),
-                         BorderColor("green")
-                        ),
+            Def(WinBox,
+                BorderedBox,
+                BorderStyle("double"),
+                BorderWidth("4px"),
+                BorderColor("green")
+            ),
 
-                     Def(BorderedBoxRed,
-                         BorderedBox,
-                         Border("2px solid red")
-                        ),
+            Def(BorderedBoxRed,
+                BorderedBox,
+                Border("2px solid red")
+            ),
 
-                        Def(BorderW2,
-                         BorderWidth("2px")
-                        ),
+            Def(BorderW2,
+                BorderWidth("2px")
+            ),
 
-                        Def(BorderW4,
-                         BorderWidth("4px")
-                        ),
+            Def(BorderW4,
+                BorderWidth("4px")
+            ),
 
-                      Def(CardBackPartial,
-                         Padding("2px"),
-                         BorderRadius(".25rem .25rem 0rem 0rem"),
-                         Width("fit-content"),
-                         BorderWidth("2px 2px 0px 2px"),
-                         BorderStyle("solid"),
-                         BorderColor("green")
-                        ),
+            Def(CardBackPartial,
+                Padding("2px"),
+                BorderRadius(".25rem .25rem 0rem 0rem"),
+                Width("fit-content"),
+                BorderWidth("2px 2px 0px 2px"),
+                BorderStyle("solid"),
+                BorderColor("green")
+            ),
 
-                      Def(CardEmptyBorderGreen,
-                          BorderedBoxGreen,
-                          W4C,
-                          H6,
-                          M2
-                          ),
+            Def(CardEmptyBorderGreen,
+                BorderedBoxGreen,
+                W4C,
+                H6,
+                M2
+            ),
 
-                     Def(CardBlack,
-                         BorderedBoxBlack,
-                         TCblack
-                         ),
+            Def(CardBlack,
+                BorderedBoxBlack,
+                TCblack
+            ),
 
-                     Def(CardRed,
-                         BorderedBoxRed,
-                         TCred
-                         ),
+            Def(CardRed,
+                BorderedBoxRed,
+                TCred
+            ),
 
-                      Def(CardGreen,
-                         BorderedBoxGreen,
-                         TCgreen
-                         ),
+            Def(CardGreen,
+                BorderedBoxGreen,
+                TCgreen
+            ),
 
-                    Def(TextAlignR,
-                        TextAlign("right")
-                        ),
+            Def(TextAlignR,
+                TextAlign("right")
+            ),
 
-                    Def(TextAlignC,
-                    TextAlign("center")
-                    ),
+            Def(TextAlignC,
+                TextAlign("center")
+            ),
 
-                    Def(AlignItemRight,
-                        Position("absolute"),
-                        Right("0px"),
-                        Width("fit-content")
-                        ),
+            Def(AlignItemRight,
+                Position("absolute"),
+                Right("0px"),
+                Width("fit-content")
+            ),
 
-                     Def(AlignItemCenter,
-                        Position("absolute"),
-                        Right("50%"),
-                        Width("fit-content")
-                        ),
+            Def(AlignItemCenter,
+                Position("absolute"),
+                Right("50%"),
+                Width("fit-content")
+            ),
 
-                    Def(FlexRow,
-                        FlexDirection("row")
-                            ),
+            Def(FlexRow,
+                FlexDirection("row")
+            ),
 
-                    Def(HoverWhite,
-                    GetHoverRule("white")
-                        ),
+            Def(HoverWhite,
+                GetHoverRule("white")
+            ),
 
-                    Def(FitContent,
-                        Width("fit-content")
-                        ),
+            Def(FitContent,
+                Width("fit-content")
+            ),
 
-                     Def(H6,
-                        Height("6rem")
-                        ),
+            Def(H6,
+                Height("6rem")
+            ),
 
-                    Def(W2C,
-                        Width("2rem")
-                        ),
+            Def(W2C,
+                Width("2rem")
+            ),
 
-                    Def(W3C,
-                        Width("3rem")
-                        ),
+            Def(W3C,
+                Width("3rem")
+            ),
 
-                    Def(W4C,
-                        Width("4rem")
-                        ),
+            Def(W4C,
+                Width("4rem")
+            ),
 
-                    Def(W6C,
-                        Width("6rem")
-                        ),
+            Def(W6C,
+                Width("6rem")
+            ),
 
-                     Def(W8C,
-                        Width("8rem")
-                        ),
+             Def(W8C,
+                Width("8rem")
+            ),
 
-                    Def(FontSize3,
-                        FontSize("3rem")
-                        ),
+            Def(FontSize3,
+                FontSize("3rem")
+            ),
 
-                    Def(W25,
-                         Width("25%")
-                         ),
+            Def(W25,
+                Width("25%")
+            ),
 
-                    Def(W33,
-                         Width("33%")
-                         ),
+            Def(W33,
+                Width("33%")
+            ),
 
-                    Def(W50,
-                         Width("50%")
-                         ),
+            Def(W50,
+                Width("50%")
+            ),
 
-                    Def(W75,
-                         Width("75%")
-                         )
+            Def(W75,
+                Width("75%")
+            )
 
-                    );
+        );
         private Rule GetHoverRule(string color)
         {
             return Def("&:hover", BackgroundColor(color));
