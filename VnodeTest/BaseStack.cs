@@ -38,7 +38,7 @@ namespace Solitaire
 
         public void ClickEmptyStack(Deck cards, Card selected)
         {
-            TryPush(selected, selected.GetStack(cards));
+            TryPush(selected, cards.GetStack(selected));
         }
 
         public abstract bool CanPush(Card card);

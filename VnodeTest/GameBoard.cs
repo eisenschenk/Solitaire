@@ -134,7 +134,7 @@ namespace Solitaire
                 Selected = null;
             else
             {
-                card.GetStack(Cards).TryPush(Selected, Selected.GetStack(Cards));
+                Cards.GetStack(card).TryPush(Selected, Cards.GetStack(Selected));
                 Selected = null;
             }
         }

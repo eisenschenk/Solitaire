@@ -92,31 +92,5 @@ namespace Solitaire
                 _ => "0",
             };
         }
-
-
-
-        //TODO => deck
-        public BaseStack GetStack(Deck deck)
-        {
-            //GamePiles
-            foreach (CardStack stack in deck.GamePiles)
-                if (stack.Contains(this))
-                    return stack;
-            //Foundations
-            if (deck.Foundations.Club.Contains(this))
-                return deck.Foundations.Club;
-            else if (deck.Foundations.Spade.Contains(this))
-                return deck.Foundations.Spade;
-            else if (deck.Foundations.Heart.Contains(this))
-                return deck.Foundations.Heart;
-            else if (deck.Foundations.Diamond.Contains(this))
-                return deck.Foundations.Diamond;
-            //Tableau
-            if (deck.Tableau.TableauGraveyard.Contains(this))
-                return deck.Tableau.TableauGraveyard;
-
-            return null;
-        }
-
     }
 }
