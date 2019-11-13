@@ -54,6 +54,10 @@ namespace Solitaire
                         Margin("2px")
                         ),
 
+                    Def(Ml6,
+                        Margin("0rem 0rem 0rem 6rem")
+                        ),
+
                     Def(MX2,
                         MarginLeft("2px"),
                         MarginRight("2px")
@@ -165,6 +169,13 @@ namespace Solitaire
                          Border("2px solid green")
                         ),
 
+                     Def(WinBox,
+                         BorderedBox,
+                         BorderStyle("double"),
+                         BorderWidth("4px"),
+                         BorderColor("green")
+                        ),
+
                      Def(BorderedBoxRed,
                          BorderedBox,
                          Border("2px solid red")
@@ -223,6 +234,12 @@ namespace Solitaire
                         Width("fit-content")
                         ),
 
+                     Def(AlignItemCenter,
+                        Position("absolute"),
+                        Right("50%"),
+                        Width("fit-content")
+                        ),
+
                     Def(FlexRow,
                         FlexDirection("row")
                             ),
@@ -243,12 +260,20 @@ namespace Solitaire
                         Width("2rem")
                         ),
 
+                    Def(W3C,
+                        Width("3rem")
+                        ),
+
                     Def(W4C,
                         Width("4rem")
                         ),
 
                     Def(W6C,
                         Width("6rem")
+                        ),
+
+                     Def(W8C,
+                        Width("8rem")
                         ),
 
                     Def(FontSize3,
@@ -293,6 +318,7 @@ namespace Solitaire
         public static readonly Style H6;
 
         public static readonly Style M2;
+        public static readonly Style Ml6;
         public static readonly Style MX2;
         public static readonly Style MY2;
         public static readonly Style MR2;
@@ -301,8 +327,10 @@ namespace Solitaire
         public static readonly Style MB2;
 
         public static readonly Style W2C;
+        public static readonly Style W3C;
         public static readonly Style W4C;
         public static readonly Style W6C;
+        public static readonly Style W8C;
 
         public static readonly Style W25;
         public static readonly Style W33;
@@ -327,6 +355,7 @@ namespace Solitaire
         public static readonly Style BorderedBoxPartialSelected;
         public static readonly Style BorderedBoxBlack;
         public static readonly Style BorderedBoxGreen;
+        public static readonly Style WinBox;
         public static readonly Style BorderedBoxRed;
         public static readonly Style BorderedBoxPurple;
         public static readonly Style Score;
@@ -338,6 +367,7 @@ namespace Solitaire
         public static readonly Style CardGreen;
 
         public static readonly Style AlignItemRight;
+        public static readonly Style AlignItemCenter;
 
         public static readonly Style FitContent;
 

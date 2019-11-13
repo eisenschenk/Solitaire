@@ -33,7 +33,7 @@ namespace Solitaire
                 return false;
             if (PipSprite != card.PipSprite)
                 return false;
-            if ((IsEmpty && card.CardValue == Card.CardModel.Ace) || (Peek().CardValue == card.CardValue - 1))
+            if ((IsEmpty && card.CardValue == Card.CardModel.Ace) || !IsEmpty && (Peek().CardValue == card.CardValue - 1))
                 return true;
             return false;
         }
